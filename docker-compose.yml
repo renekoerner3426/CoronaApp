@@ -22,7 +22,7 @@ services:
     ports:
       - 8080:8080
     volumes:
-      - ./VerordnungenDataservice/target/VerordnungenDataService-0.0.1-SNAPSHOT.jar:/dataService.jar
+      - ./VerordnungenDataService/target/VerordnungenDataService-0.0.1-SNAPSHOT.jar:/dataService.jar
     command: ["java", "-jar", "dataService.jar"]
     networks:
       - coronaImportNetwork

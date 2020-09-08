@@ -16,22 +16,22 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 public class DecreeEntity {
+	 @Id
+	    @GeneratedValue(strategy = GenerationType.AUTO)
+	    @Column
+	    private Long id;
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column
-    private Long id;
+	    @Column
+	    private String state;
+	    @Column
+	    private String description;
+	    @Column
+	    private String regulation;
 
-    @Column
-    private String state;
-    @Column
-    private String description;
-    @Column
-    private String regulation;
-
-    public DecreeEntity(String state, String description, String regulation){
-        this.state = state;
-        this.description = description;
-        this.regulation = regulation;
-    }
+	    public DecreeEntity(Long id, String state, String description, String regulation){
+	    	this.id = id;
+	        this.state = state;
+	        this.description = description;
+	        this.regulation = regulation;
+	    }
 }

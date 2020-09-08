@@ -26,7 +26,8 @@ public class DecreeEntity {
     @Column
     private String regulation;
 
-    public DecreeEntity(String state, String description, String regulation){
+    public DecreeEntity(Long id, String state, String description, String regulation){
+    	this.id = id;
         this.state = state;
         this.description = description;
         this.regulation = regulation;

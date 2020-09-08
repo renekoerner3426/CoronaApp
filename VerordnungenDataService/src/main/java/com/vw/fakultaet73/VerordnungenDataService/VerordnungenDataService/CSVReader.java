@@ -9,8 +9,8 @@ import java.util.List;
 
 public class CSVReader {
 
-	private String csvFileWindows = "C:/Users/VW3Q1D5/Desktop/Verordnungen.csv";
-	private String csvFileLinux = "~/media/sf_Test/Kassandra";
+	private String csvFileWindows = "../Verordnungen.csv";
+	private String csvFileLinux = "~/Schreibtisch/Verordnungen.csv";
 
 	public List<String[]> readFromCSV(){
 		BufferedReader br = null;

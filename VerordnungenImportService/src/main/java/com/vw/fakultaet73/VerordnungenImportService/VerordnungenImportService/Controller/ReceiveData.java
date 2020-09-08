@@ -62,7 +62,7 @@ public class ReceiveData {
 	private List<DecreeEntity> getList(List<String[]> list) {
 		List<DecreeEntity> decreeList = new ArrayList<>();
 		for (String[] string : list) {
-			decreeList.add(new DecreeEntity(string[2], string[1], string[3]));
+			decreeList.add(new DecreeEntity(0L,string[2], string[1], string[3]));
 		}
 		return decreeList;
 	}

@@ -1,0 +1,18 @@
+<div id="login" *ngIf="loggedIn == false; else elseBlock">
+    <input type="text" placeholder="Benutzername" [(ngModel)]="userName">
+    <input type="password" placeholder="Password" [(ngModel)]="userPassword">
+    <button (click)="login()">Login</button>
+</div>
+<ng-template #elseBlock>
+    Willkommen im Bereitstellungsmenü für Corona-Verordnungen!
+    Sie können neue Verordnungen ganz einfach über diese Seite erstellen.
+    Upload einer CSV-Datei
+    <p>
+    Bundesland: <select [(ngModel)]="stateDecree" >
+        <option *ngFor="let state of states">{{state}}</option>
+    </select>
+    Beschreibung: <input type="text" placeholder="z.B.: Mindestabstand von 3m" [(ngModel)]="descriptionDecree">
+    Einschränkungen<input type="text" placeholder="z.B.: Fußball draußen" [(ngModel)]="regulationsDecree">
+    <button (click)="addDecree()">Login</button>
+</p>
+</ng-template>

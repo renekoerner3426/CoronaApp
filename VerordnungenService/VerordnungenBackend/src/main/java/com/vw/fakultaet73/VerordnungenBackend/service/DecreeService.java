@@ -22,5 +22,4 @@ public class DecreeService {
 		savedEntitys.forEach(savedEntity -> decreeList.add(savedEntity));
 		return decreeList;
 	}
-
 }

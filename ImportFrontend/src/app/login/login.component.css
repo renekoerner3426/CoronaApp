@@ -1,0 +1,15 @@
+#login {
+    display: flex;
+    justify-content: center;
+    
+}
+
+#login input {
+    height: 50px;
+    font-size: 24px;
+}
+
+button {
+    background-color: #14b922;
+    font-weight: bold;
+}

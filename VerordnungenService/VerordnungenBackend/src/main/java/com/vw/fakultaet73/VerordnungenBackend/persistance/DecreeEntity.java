@@ -24,12 +24,12 @@ public class DecreeEntity {
     @Column
     private String description;
     @Column
-    private String regulation;
+    private String regulations;
 
     public DecreeEntity(Long id, String state, String description, String regulation){
     	this.id = id;
         this.state = state;
         this.description = description;
-        this.regulation = regulation;
+        this.regulations = regulation;
     }
 }

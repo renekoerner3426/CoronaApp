@@ -1,0 +1,38 @@
+<body>
+    <!-- Header -->
+    <div class="header">
+        <h1><a routerLink="../login" class="loginlink">Corona Verordnungen</a></h1>
+        <p>Für<b> jedes</b> Bundesland</p>
+    </div>
+
+    <!-- Navigation Bar -->
+    <nav>
+        <h1>Bundesland auswählen: </h1>
+        <select [(ngModel)]="selectedState" (change)="searchByState(selectedState)">
+            <option *ngFor="let state of states">{{state}}</option>
+        </select>
+        <div id="searchfield">
+            <input [(ngModel)]="searchWords" type="text" placeholder="Search.." name="search">
+            <button (click)="searchByRegulations(searchWords)">🔎</button>
+        </div>
+    </nav>
+
+    <!-- Content -->
+    <h2>Verordnungen für: {{selectedState}}</h2>
+
+    <table>
+        <tr>
+            <th>Beschreibung</th>
+            <th>Einschränkungen</th>
+        </tr>
+        <tr *ngFor="let decree of selectedDecreesByStateFiltered">
+            <td>{{ decree.description }}</td>
+            <td>{{ decree.regulations }}</td>
+        </tr>
+    </table>
+
+    <!-- Footer -->
+    <footer>
+        Java-Fullstack-Prüfung: René Körner und Chris Frömling
+    </footer>
+</body>

@@ -1,0 +1,109 @@
+/* Header/logo Title */
+
+.header {
+    padding: 10px;
+    text-align: center;
+    background: #0d4671;
+    color: white;
+}
+
+.loginlink {
+    color: white;
+    text-decoration: none;
+}
+
+
+/* Style the top navigation bar */
+
+nav {
+    display: flex;
+    background-color: #333;
+}
+
+
+/* Style the navigation bar header */
+
+nav h1 {
+    color: white;
+    padding: 14px 20px;
+    text-decoration: none;
+    text-align: center;
+}
+
+
+/* Style the navigation bar dropDown */
+
+nav select {
+    width: 15%;
+    font-size: 30px;
+    background-color: rgb(94, 94, 94);
+    color: white;
+}
+
+
+/* Style the searchfield */
+
+#searchfield {
+    margin: auto;
+    box-sizing: border-box;
+}
+
+#searchfield input[type=text] {
+    padding: 10px;
+    font-size: 17px;
+    border: 1px solid grey;
+    float: left;
+    width: 70%;
+    height: 20px;
+    background: #f1f1f1;
+}
+
+#searchfield button {
+    float: left;
+    width: 20%;
+    padding: 9px;
+    background: #2196F3;
+    color: white;
+    font-size: 17px;
+    border: 1px solid grey;
+    border-left: none;
+    cursor: pointer;
+}
+
+#searchfield button:hover {
+    background: #0b7dda;
+}
+
+
+/* Style the body */
+
+body {
+    font-family: Arial;
+    margin: 0;
+    width: 80%;
+    margin-left: auto;
+    margin-right: auto;
+    background: #d9d9d9;
+}
+
+p {
+    padding-bottom: 10px;
+}
+
+
+/* Footer */
+
+footer {
+    padding: 20px;
+    text-align: center;
+    background: #333;
+}
+
+
+/* Responsive layout - when the screen is less than 700px wide, make the two columns stack on top of each other instead of next to each other */
+
+@media screen and (max-width: 700px) {
+    body {
+        width: 100%;
+    }
+}

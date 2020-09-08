@@ -26,7 +26,7 @@ public class VerordnungenDataServiceApplication {
 	@GetMapping("/decrees")
 	@ResponseStatus(HttpStatus.OK)
 	public  List<String[]> getDecrees() {
-		System.out.println(host.csvReader.readFromCSV());
+
 		return host.csvReader.readFromCSV();
 	}
 

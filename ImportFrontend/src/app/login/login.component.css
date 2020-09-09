@@ -1,7 +1,7 @@
 #login {
     display: flex;
     justify-content: center;
-    
+    max-width: 100%;
 }
 
 #login input {
@@ -12,4 +12,58 @@
 button {
     background-color: #14b922;
     font-weight: bold;
+}
+
+.loginButton {
+    height: 56px;
+    min-width: 100px;
+    font-size: 24px;
+}
+
+.welcomeDiv {
+    text-align: center;
+    display: block;
+}
+
+.noDataText {
+    text-align: center;
+    font-weight: bold;
+    margin-top: 60px !important;
+}
+
+.tableDiv {
+    text-align: center;
+}
+
+.regulationDiv {
+    margin-right: 10px;
+}
+
+.uploadInput {
+    margin-left: 10px;
+    margin-right: 10px;
+}
+
+.window {
+    min-height: 500px;
+    max-width: 100%;
+}
+
+.entryFieldsDiv {
+    margin-left: 30px;
+    margin-top: 20px;
+    display: flex;
+}
+
+@media only screen and (max-width: 950px) {
+    .entryFieldsDiv {
+        display: block;
+        text-align: left;
+    }
+    #login {
+        display: block;
+    }
+    .loginButton {
+        min-width: 300px !important;
+    }
 }

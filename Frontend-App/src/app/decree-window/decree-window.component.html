@@ -8,8 +8,8 @@
     <!-- Navigation Bar -->
     <nav>
         <h1>Bundesland auswählen: </h1>
-        <select [(ngModel)]="selectedState" (change)="searchByState(selectedState)">
-            <option *ngFor="let state of states">{{state}}</option>
+        <select class="dropDown" [(ngModel)]="selectedState" (change)="searchByState(selectedState)">
+            <option  *ngFor="let state of states">{{state}}</option>
         </select>
         <div id="searchfield">
             <input [(ngModel)]="searchWords" type="text" placeholder="Search.." name="search">
@@ -18,22 +18,26 @@
     </nav>
 
     <!-- Content -->
-    <h2>Verordnungen für: {{selectedState}}</h2>
-    <div *ngIf="selectedDecreesByStateFiltered.length > 0; else elseBlock">
-        <table>
-            <tr>
-                <th>Beschreibung</th>
-                <th>Einschränkungen</th>
-            </tr>
-            <tr *ngFor="let decree of selectedDecreesByStateFiltered">
-                <td>{{ decree.description }}</td>
-                <td>{{ decree.regulations }}</td>
-            </tr>
-        </table>
+    <div class="mainContent">
+        <h2>Verordnungen für: {{selectedState}}</h2>
+        <div *ngIf="selectedDecreesByStateFiltered.length > 0; else elseBlock">
+            <table>
+                <tr>
+                    <th>Beschreibung</th>
+                    <th>Einschränkungen</th>
+                </tr>
+                <tr *ngFor="let decree of selectedDecreesByStateFiltered">
+                    <td>{{ decree.description }}</td>
+                    <td>{{ decree.regulations }}</td>
+                </tr>
+            </table>
+        </div>
+        <ng-template class="noDataTemplate" #elseBlock>
+            <div class="noDataText">
+                Ooops! Es konnten keine Verordnungen gefunden werden...
+            </div>
+        </ng-template>
     </div>
-    <ng-template #elseBlock>
-        Ooops! Es konnten keine Verordnungen gefunden werden...
-    </ng-template>
 
     <!-- Footer -->
     <footer>

@@ -7,9 +7,24 @@
     color: white;
 }
 
+.mainContent {
+    text-align: center;
+    min-height: 500px;
+}
+
 .loginlink {
     color: white;
     text-decoration: none;
+}
+
+.noDataText {
+    text-align: center;
+    font-weight: bold;
+    margin-top: 60px !important;
+}
+
+.noDataTemplate {
+    vertical-align: bottom;
 }
 
 
@@ -97,6 +112,13 @@ footer {
     padding: 20px;
     text-align: center;
     background: #333;
+}
+
+.dropDown {
+    margin-top: 35px;
+    max-height: 40px !important;
+    min-width: 100px;
+    margin-right: 20px;
 }
 
 

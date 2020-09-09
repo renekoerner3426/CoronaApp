@@ -12,6 +12,7 @@
     text-decoration: none;
 }
 
+
 /* Style the body */
 
 body {
@@ -21,6 +22,8 @@ body {
     margin-left: auto;
     margin-right: auto;
     background: #d9d9d9;
+    align-content: center;
+    justify-content: center;
 }
 
 p {

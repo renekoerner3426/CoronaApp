@@ -1,7 +1,5 @@
 version: '3'
 
- 
-
 services:
   database:
     image: mysql
@@ -18,8 +16,6 @@ services:
     networks:
       - coronaImportNetwork
 
- 
-
   dataservice:
     image: openjdk:10-jre-slim
     container_name: dataservice
@@ -30,8 +26,6 @@ services:
     command: ["java", "-jar", "dataService.jar"]
     networks:
       - coronaImportNetwork
-
- 
 
   importservice:
     image: openjdk:10-jre-slim
@@ -47,8 +41,6 @@ services:
     networks:
       - coronaImportNetwork
 
- 
-
   outputservice:
     image: openjdk:10-jre-slim
     container_name: outputservice
@@ -63,8 +55,6 @@ services:
     networks:
       - coronaImportNetwork 
 
- 
-
   frontend:
     tty: true
     image: nginx:alpine
@@ -78,8 +68,6 @@ services:
     networks:
       - coronaImportNetwork 
 
- 
-
   importfrontend:
     tty: true
     image: nginx:alpine
@@ -92,8 +80,6 @@ services:
       - ./ImportFrontend/dist/ImportFrontend:/usr/share/nginx/html
     networks:
       - coronaImportNetwork 
-
- 
 
 volumes:
   dockerSpringDatabaseData:

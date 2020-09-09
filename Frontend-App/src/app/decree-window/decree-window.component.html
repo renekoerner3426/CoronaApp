@@ -19,17 +19,21 @@
 
     <!-- Content -->
     <h2>Verordnungen für: {{selectedState}}</h2>
-
-    <table>
-        <tr>
-            <th>Beschreibung</th>
-            <th>Einschränkungen</th>
-        </tr>
-        <tr *ngFor="let decree of selectedDecreesByStateFiltered">
-            <td>{{ decree.description }}</td>
-            <td>{{ decree.regulations }}</td>
-        </tr>
-    </table>
+    <div *ngIf="selectedDecreesByStateFiltered.length > 0; else elseBlock">
+        <table>
+            <tr>
+                <th>Beschreibung</th>
+                <th>Einschränkungen</th>
+            </tr>
+            <tr *ngFor="let decree of selectedDecreesByStateFiltered">
+                <td>{{ decree.description }}</td>
+                <td>{{ decree.regulations }}</td>
+            </tr>
+        </table>
+    </div>
+    <ng-template #elseBlock>
+        Ooops! Es konnten keine Verordnungen gefunden werden...
+    </ng-template>
 
     <!-- Footer -->
     <footer>

@@ -1,14 +1,17 @@
+<!-- Login -->
 <div id="login" *ngIf="loggedIn == false; else elseBlock">
     <input type="text" placeholder="Benutzername" [(ngModel)]="userName">
     <input type="password" placeholder="Password" [(ngModel)]="userPassword">
     <button (click)="login()">Login</button>
 </div>
+
+<!-- Verordnungen new -->
 <ng-template #elseBlock>
     Willkommen im Bereitstellungsmenü für Corona-Verordnungen!
     Sie können neue Verordnungen ganz einfach über diese Seite erstellen.
     <button (click)="basicImport()">Import der Standartdaten</button>
     <p>
-    Bundesland: <select [(ngModel)]="selectedState" >
+    Bundesland: <select [(ngModel)]="selectedState" (change)="searchByState(selectedState)">
         <option *ngFor="let state of states">{{state}}</option>
     </select>
     Beschreibung: <input type="text" placeholder="z.B.: Mindestabstand von 3m" [(ngModel)]="descriptionDecree">
@@ -16,18 +19,23 @@
     <button (click)="addDecree()">neue Verordnung</button>
 </p>
 
- <!-- Content -->
- <h2>Verordnungen für: {{selectedState}}</h2>
-
- <table>
-     <tr>
-         <th>Beschreibung</th>
-         <th>Einschränkungen</th>
-     </tr>
-     <tr *ngFor="let decree of decrees">
-         <td>{{ decree.description }}</td>
-         <td>{{ decree.regulations }}</td>
-     </tr>
- </table>
+<!-- Verordnungen Edit -->
+<div *ngIf="selectedDecreesByStateFiltered.length > 0; else elseBlock">
+    <h2>Verordnungen für: {{selectedState}}</h2>
+    <table>
+        <tr>
+            <th>Beschreibung</th>
+            <th>Einschränkungen</th>
+        </tr>
+        <tr *ngFor="let decree of selectedDecreesByStateFiltered">
+            <td>{{ decree.state }}</td>
+            <td>{{ decree.regulations }}</td>
+            <td>{{ decree.description }}</td>
+        </tr>
+    </table>
+</div>
+<ng-template #elseBlock>
+    Ooops! Es konnten keine Verordnungen gefunden werden...
+</ng-template>
 
 </ng-template>

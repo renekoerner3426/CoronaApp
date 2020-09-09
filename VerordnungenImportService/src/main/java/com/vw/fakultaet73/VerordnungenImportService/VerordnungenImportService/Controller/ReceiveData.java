@@ -69,11 +69,12 @@ public class ReceiveData {
 	
 	@GetMapping("/maches")
 	@ResponseStatus(HttpStatus.OK)
-	public void saveList() {
+	public List<DecreeEntity> saveList() {
 		try {
-			this.importService.saveDecrees(getList(getData()));
+			return this.importService.saveDecrees(getList(getData()));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+		return null;
 	}
 }

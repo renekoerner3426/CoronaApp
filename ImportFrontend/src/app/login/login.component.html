@@ -6,13 +6,28 @@
 <ng-template #elseBlock>
     Willkommen im Bereitstellungsmenü für Corona-Verordnungen!
     Sie können neue Verordnungen ganz einfach über diese Seite erstellen.
-    Upload einer CSV-Datei
+    <button (click)="basicImport()">Import der Standartdaten</button>
     <p>
-    Bundesland: <select [(ngModel)]="stateDecree" >
+    Bundesland: <select [(ngModel)]="selectedState" >
         <option *ngFor="let state of states">{{state}}</option>
     </select>
     Beschreibung: <input type="text" placeholder="z.B.: Mindestabstand von 3m" [(ngModel)]="descriptionDecree">
     Einschränkungen<input type="text" placeholder="z.B.: Fußball draußen" [(ngModel)]="regulationsDecree">
-    <button (click)="addDecree()">Login</button>
+    <button (click)="addDecree()">neue Verordnung</button>
 </p>
+
+ <!-- Content -->
+ <h2>Verordnungen für: {{selectedState}}</h2>
+
+ <table>
+     <tr>
+         <th>Beschreibung</th>
+         <th>Einschränkungen</th>
+     </tr>
+     <tr *ngFor="let decree of decrees">
+         <td>{{ decree.description }}</td>
+         <td>{{ decree.regulations }}</td>
+     </tr>
+ </table>
+
 </ng-template>

@@ -1,5 +1,6 @@
 package com.vw.fakultaet73.VerordnungenImportService.VerordnungenImportService.services;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,7 +15,15 @@ public class ImportService {
 	@Autowired
 	private DecreeEntityRepository decreeRepository;
 	
-	public void saveDecrees(List<DecreeEntity> decrees) {
-		this.decreeRepository.saveAll(decrees);
+	public List<DecreeEntity> saveDecrees(List<DecreeEntity> decrees) {
+		Iterable<DecreeEntity> savedEntitys = this.decreeRepository.saveAll(decrees);
+		
+		List<DecreeEntity> decreeList = new ArrayList<>();
+		savedEntitys.forEach(savedEntity -> decreeList.add(savedEntity));
+		return decreeList;
+	}
+	
+	public DecreeEntity save(DecreeEntity decrees) {
+		return this.decreeRepository.save(decrees);
 	}
 }

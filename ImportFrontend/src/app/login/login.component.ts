@@ -19,10 +19,13 @@ export class LoginComponent implements OnInit {
   userPassword: string ;
 
   decreeUrl = "http://localhost:8081/newDecree";
+  importUrl = "http://localhost:8081/maches";
 
-  stateDecree: string;
+  selectedState: string;
   descriptionDecree: string;
   regulationsDecree: string;
+
+  decrees;
 
   decreeCreated: number;
 
@@ -43,10 +46,20 @@ export class LoginComponent implements OnInit {
   }
 
   addDecree() {
-    let decree: DecreeEntity = {id: 0, state: this.stateDecree, description: this.descriptionDecree, regulations: this.regulationsDecree }
+    let decree: DecreeEntity = {id: 0, state: this.selectedState, description: this.descriptionDecree, regulations: this.regulationsDecree }
     return this.http.post<DecreeEntity>(this.decreeUrl, decree).subscribe({
       next: data => {this.decreeCreated = data.id},
       error: error => console.error('addDecree() - could not use ImportService!', error)
-  })
+    })
+  }
+
+  basicImport(){
+    this.http.get<DecreeEntity[]>(`http://localhost:8081/maches`).subscribe(({
+      error: error => console.error('basicImport() - could not use ImportService!', error),
+      next: data => data.forEach(element => {
+        this.decrees.push(element);
+        console.log(element);
+      })
+    }))
   }
 }

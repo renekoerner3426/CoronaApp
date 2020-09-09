@@ -20,6 +20,6 @@ public class DecreeController {
 	@GetMapping("/decrees")
 	@ResponseStatus(HttpStatus.OK)
 	public List<DecreeEntity> getDecrees() {
-		return decreeService.getDecreeList();
+		return decreeService.getDecreesList();
 	}
 }

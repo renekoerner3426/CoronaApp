@@ -74,7 +74,7 @@ services:
     depends_on:
       - outputservice
     volumes:
-      - ./Frontend/dist/Frontend-App:/usr/share/nginx/html
+      - ./Frontend-App/dist/Frontend-App:/usr/share/nginx/html
     networks:
       - coronaImportNetwork 
 

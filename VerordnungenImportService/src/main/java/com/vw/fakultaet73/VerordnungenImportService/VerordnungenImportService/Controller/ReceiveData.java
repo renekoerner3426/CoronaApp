@@ -3,10 +3,18 @@ package com.vw.fakultaet73.VerordnungenImportService.VerordnungenImportService.C
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLConnection;
 import java.util.ArrayList;
 import java.util.List;
+
+import javax.ws.rs.client.Client;
+import javax.ws.rs.client.ClientBuilder;
+import javax.ws.rs.client.WebTarget;
+import javax.ws.rs.core.GenericType;
+import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -18,6 +26,8 @@ import org.springframework.web.bind.annotation.RestController;
 import com.vw.fakultaet73.VerordnungenImportService.VerordnungenImportService.entitites.DecreeEntity;
 import com.vw.fakultaet73.VerordnungenImportService.VerordnungenImportService.services.ImportService;
 
+
+
 @RestController
 public class ReceiveData {
 	
@@ -26,57 +36,21 @@ public class ReceiveData {
 	
 	private final String GET_URL = "http://dataservice:8080/decrees";
 	
-	private List<String[]> getData() throws IOException {
-
-			List<String[]> dataList = new ArrayList<>();
-			StringBuilder result = new StringBuilder();
-			URL url = new URL(GET_URL);
-		    URLConnection conn = url.openConnection(); 
-	     
-	      BufferedReader rd = new BufferedReader(new InputStreamReader(conn.getInputStream()));
-	      String line;
-
-	      while ((line = rd.readLine()) != null) {
-			 result.append(line);
-		  }
-		  
-	     String[] decreeAsWeirdString = seperateData(result);
-	     for (String string : decreeAsWeirdString) {
-			 	dataList.add(createGoodDecreeString(string));
-		}
-	      rd.close();
-	      return dataList;
-	}
-
-	private String[] seperateData(StringBuilder result) {
-		return result.toString().split(",");
-	}
-
-	private String[] createGoodDecreeString(String string) {
-		string = string.replace("[", "");
-		string = string.replace("]", "");
-		string = string.replace("\"", "");
-		String [] decree = string.split(";");
-		return decree;
-	}
-	
-	private List<DecreeEntity> getList(List<String[]> list) {
-		List<DecreeEntity> decreeList = new ArrayList<>();
-		for (String[] string : list) {
-			decreeList.add(new DecreeEntity(0L,string[2], string[1], string[3]));
-		}
-		return decreeList;
-	}
 	
 	@CrossOrigin("*")
 	@GetMapping("/maches")
 	@ResponseStatus(HttpStatus.OK)
 	public List<DecreeEntity> saveList() {
-		try {
-			return this.importService.saveDecrees(getList(getData()));
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		return null;
+			return this.importService.saveDecrees((parse()));
+	}
+	
+	public List<DecreeEntity> parse() {
+		Client client = ClientBuilder.newClient();
+		Response response = client.target(GET_URL)
+			.request(MediaType.APPLICATION_JSON)
+			.get();
+		return response.readEntity(new GenericType<List<DecreeEntity>>() {});
+
+		
 	}
 }

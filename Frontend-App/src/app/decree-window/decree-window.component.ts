@@ -30,7 +30,7 @@ export class DecreeWindowComponent implements OnInit {
 "Niedersachsen", "Nordrhein-Westfalen", "Rheinland-Pfalz", "Sarland", 
 "Sachsen", "Sachsen-Anhalt", "Schleswig-Holstein", "Thüringen"];
 
-  decrees: DecreeEntity[];
+  decrees: DecreeEntity[] = [];
   selectedDecreesByState = [];
   selectedDecreesByStateFiltered = [];
   selectedState="keine Auswahl";

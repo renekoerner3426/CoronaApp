@@ -34,4 +34,8 @@ public class DecreeEntity {
 	        this.description = description;
 	        this.regulations = regulation;
 	    }
+	    
+	    public  DecreeEntity() {
+	    	
+	    }
 }

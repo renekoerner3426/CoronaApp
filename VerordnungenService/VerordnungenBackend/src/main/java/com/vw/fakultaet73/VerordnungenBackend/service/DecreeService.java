@@ -20,7 +20,7 @@ public class DecreeService {
 
 	private List<DecreeEntity> decreeList = new ArrayList<>();
 
-	@Scheduled(fixedRate = 9999)
+	@Scheduled(cron = "0 0 3 * * ?")
 	public void loadDecreeList() {
 		System.out.println("REEEELOAAAAADDDD");
 		Iterable<DecreeEntity> savedEntitys = this.decreeRepository.findAll();	

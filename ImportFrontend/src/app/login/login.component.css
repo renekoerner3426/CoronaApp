@@ -31,12 +31,13 @@ button {
     margin-top: 60px !important;
 }
 
-.tableDiv {
-    text-align: center;
-}
-
 .regulationDiv {
     margin-right: 10px;
+}
+
+.decriptionColumn {
+    overflow: auto;
+    white-space: nowrap;
 }
 
 .uploadInput {

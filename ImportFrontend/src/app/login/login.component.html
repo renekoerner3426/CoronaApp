@@ -41,9 +41,8 @@
                         <th>Einschränkungen</th>
                     </tr>
                     <tr *ngFor="let decree of selectedDecreesByStateFiltered">
-                        <td>{{ decree.state }}</td>
+                        <td class="decriptionColumn">{{ decree.description }}</td>
                         <td>{{ decree.regulations }}</td>
-                        <td>{{ decree.description }}</td>
                     </tr>
                 </table>
             </div>

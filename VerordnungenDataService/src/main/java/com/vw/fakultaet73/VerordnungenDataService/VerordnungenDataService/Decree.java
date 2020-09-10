@@ -1,11 +1,13 @@
 package com.vw.fakultaet73.VerordnungenDataService.VerordnungenDataService;
 
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 /**
  * Decree
  */
 @Data
+@NoArgsConstructor
 public class Decree {
 
     private Long id;

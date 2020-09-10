@@ -13,7 +13,7 @@ import org.springframework.stereotype.Service;
 public class CSVReader {
 
 
-	private InputStream input = this.getClass().getResourceAsStream("Verordnungen.csv");
+	InputStream input;
 
 	public List<Decree> getDecreesList() {
 		List<Decree> decreeList = new ArrayList<>();
@@ -44,6 +44,7 @@ public class CSVReader {
 	}
 
 	private StringBuilder StringBuilderFromCSV() throws IOException {
+		input = this.getClass().getResourceAsStream("Verordnungen.csv");
 		StringBuilder sb = new StringBuilder();
 		String line;
 		BufferedReader br =  new BufferedReader(new InputStreamReader(this.input));

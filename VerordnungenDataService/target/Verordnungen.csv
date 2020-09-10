@@ -1,7 +1,135 @@
-Maskenpflicht;Niedersachsen;Bar
-Masken-�und�Waffenpflicht;Bayern;Bar
-Tu�das�nicht;Bayern;Keller
-Trink�nicht�zu�viel;Niedersachsen;Brauerei
-Enrsthaft�stop;Niedersachsen;Brauerei
-Abstand 3m;Niedersachsen;Fu?ball
-Schubsen;Sachsen-Anhalt;Supermarkt
+Maximale Anzahl Personen: 4;Baden-Württemberg; Raum
+Maximale Anzahl Personen: 9;Baden-Württemberg;
+Maximale Anzahl Haushalte: 3;Baden-Württemberg; Raum
+Maximale Anzahl Haushalte: 4;Baden-Württemberg;
+Maskenpflicht: Nein;Baden-Württemberg;
+Schließungen: Badeanstalten;Baden-Württemberg;
+Maximale Teilnehmerzahl pro m² Fläche: 0.4;Baden-Württemberg; Raum
+Maximale Teilnehmerzahl pro m² Fläche: 0.7;Baden-Württemberg;
+Die Ausreise in nicht als sicher gekennzeichnete Länder verpflichtet bei Wiederkehr zu einer dreiwöchigen Quarantäne;Baden-Württemberg;
+Maximale Anzahl Personen: 2;Bayern; Raum
+Maximale Anzahl Personen: 2;Bayern;
+Maximale Anzahl Haushalte: 1;Bayern; Raum
+Maximale Anzahl Haushalte: 1;Bayern;
+Maskenpflicht: Ja;Bayern;
+Schließungen: Brauereien, Kindergärten, Schulen, Bars, Internet;Bayern;
+Maximale Teilnehmerzahl pro m² Fläche: 0.1;Bayern; Raum
+Maximale Teilnehmerzahl pro m² Fläche: 0.1;Bayern;
+Die Ausreise in nicht als sicher gekennzeichnete Länder verpflichtet bei Wiederkehr zu einer ewigen Quarantäne;Bayern;
+Maximale Anzahl Personen: 4;Berlin; Raum
+Maximale Anzahl Personen: 6;Berlin;
+Maximale Anzahl Haushalte: 1;Berlin; Raum
+Maximale Anzahl Haushalte: 2;Berlin;
+Maskenpflicht: Ja;Berlin;
+Schließungen: Kindergärten, Schulen, Bars;Berlin;
+Maximale Teilnehmerzahl pro m² Fläche: 0.5;Berlin; Raum
+Maximale Teilnehmerzahl pro m² Fläche: 0.7;Berlin;
+Die Ausreise in nicht als sicher gekennzeichnete Länder verpflichtet bei Wiederkehr zu einer zweiwöchigen Quarantäne;Berlin;
+Maximale Anzahl Personen: 6;Brandenburg; Raum
+Maximale Anzahl Personen: 10;Brandenburg;
+Maximale Anzahl Haushalte: 3;Brandenburg; Raum
+Maximale Anzahl Haushalte: 5;Brandenburg;
+Maskenpflicht: Nein;Brandenburg;
+Schließungen: Kindergärten, Schulen;Brandenburg;
+Maximale Teilnehmerzahl pro m² Fläche: 0.5;Brandenburg; Raum
+Maximale Teilnehmerzahl pro m² Fläche: 1;Brandenburg;
+Die Ausreise in nicht als sicher gekennzeichnete Länder verpflichtet bei Wiederkehr zu einer zweiwöchigen Quarantäne;Brandenburg;
+Maximale Anzahl Personen: 2;Bremen; Raum
+Maximale Anzahl Personen: 4;Bremen;
+Maximale Anzahl Haushalte: 1;Bremen; Raum
+Maximale Anzahl Haushalte: 2;Bremen;
+Maskenpflicht: Ja;Bremen;
+Schließungen: Kindergärten, Schulen, Bars;Bremen;
+Maximale Teilnehmerzahl pro m² Fläche: 0.3;Bremen; Raum
+Maximale Teilnehmerzahl pro m² Fläche: 0.6;Bremen;
+Die Ausreise in nicht als sicher gekennzeichnete Länder verpflichtet bei Wiederkehr zu einer dreiwöchigen Quarantäne;Bremen;
+Maximale Anzahl Personen: 3;Hamburg; Raum
+Maximale Anzahl Personen: 5;Hamburg;
+Maximale Anzahl Haushalte: 1;Hamburg; Raum
+Maximale Anzahl Haushalte: 3;Hamburg;
+Maskenpflicht: Ja;Hamburg;
+Schließungen: Fähren;Hamburg;
+Maximale Teilnehmerzahl pro m² Fläche: 0.3;Hamburg; Raum
+Maximale Teilnehmerzahl pro m² Fläche: 0.7;Hamburg;
+Die Ausreise in nicht als sicher gekennzeichnete Länder verpflichtet bei Wiederkehr zu einer zweiwöchigen Quarantäne;Hamburg;
+Maximale Anzahl Personen: 7;Mecklenburg-Vorpommern; Raum
+Maximale Anzahl Personen: 20;Mecklenburg-Vorpommern;
+Maximale Anzahl Haushalte: 3;Mecklenburg-Vorpommern; Raum
+Maximale Anzahl Haushalte: 6;Mecklenburg-Vorpommern;
+Maskenpflicht: Nein;Mecklenburg-Vorpommern;
+Schließungen: Bars;Mecklenburg-Vorpommern;
+Maximale Teilnehmerzahl pro m² Fläche: 1;Mecklenburg-Vorpommern; Raum
+Maximale Teilnehmerzahl pro m² Fläche: 1;Mecklenburg-Vorpommern;
+Die Ausreise in nicht als sicher gekennzeichnete Länder verpflichtet bei Wiederkehr zu einer einwöchtigen Quarantäne;Mecklenburg-Vorpommern;
+Maximale Anzahl Personen: 3;Niedersachsen; Raum
+Maximale Anzahl Personen: 10;Niedersachsen;
+Maximale Anzahl Haushalte: 2;Niedersachsen; Raum
+Maximale Anzahl Haushalte: 5;Niedersachsen;
+Maskenpflicht: Ja;Niedersachsen;
+Schließungen: Restaurants, Kneipen, Tätowierstudios,Buchläden;Niedersachsen;
+Maximale Teilnehmerzahl pro m² Fläche: 0.3;Niedersachsen; Raum
+Maximale Teilnehmerzahl pro m² Fläche: 0.8;Niedersachsen;
+Die Ausreise in nicht als sicher gekennzeichnete Länder verpflichtet bei Wiederkehr zu einer zweiwöchigen Quarantäne;Niedersachsen;
+Maximale Anzahl Personen: 6;Nordrhein-Westfalen; Raum
+Maximale Anzahl Personen: 15;Nordrhein-Westfalen;
+Maximale Anzahl Haushalte: 3;Nordrhein-Westfalen; Raum
+Maximale Anzahl Haushalte: 5;Nordrhein-Westfalen;
+Maskenpflicht: Nein;Nordrhein-Westfalen;
+Schließungen: keine;Nordrhein-Westfalen;
+Maximale Teilnehmerzahl pro m² Fläche: 0.4;Nordrhein-Westfalen; Raum
+Maximale Teilnehmerzahl pro m² Fläche: 0.7;Nordrhein-Westfalen;
+Die Ausreise in nicht als sicher gekennzeichnete Länder verpflichtet bei Wiederkehr zu einer einwöchigen Quarantäne;Nordrhein-Westfalen;
+Maximale Anzahl Personen: 2;Rheinland-Pfalz; Raum
+Maximale Anzahl Personen: 4;Rheinland-Pfalz;
+Maximale Anzahl Haushalte: 1;Rheinland-Pfalz; Raum
+Maximale Anzahl Haushalte: 1;Rheinland-Pfalz;
+Maskenpflicht: Ja;Rheinland-Pfalz;
+Schließungen: Kindergärten, Schulen, Bars;Rheinland-Pfalz;
+Maximale Teilnehmerzahl pro m² Fläche: 0.3;Rheinland-Pfalz; Raum
+Maximale Teilnehmerzahl pro m² Fläche: 0.3;Rheinland-Pfalz;
+Die Ausreise in nicht als sicher gekennzeichnete Länder verpflichtet bei Wiederkehr zu einer dreiwöchigen Quarantäne;Rheinland-Pfalz;
+Maximale Anzahl Personen: 4;Saarland; Raum
+Maximale Anzahl Personen: 10;Saarland;
+Maximale Anzahl Haushalte: 2;Saarland; Raum
+Maximale Anzahl Haushalte: 4;Saarland;
+Maskenpflicht: Ja;Saarland;
+Schließungen: Bars, Discotheken;Saarland;
+Maximale Teilnehmerzahl pro m² Fläche: 0.3;Saarland; Raum
+Maximale Teilnehmerzahl pro m² Fläche: 0.6;Saarland;
+Die Ausreise in nicht als sicher gekennzeichnete Länder verpflichtet bei Wiederkehr zu einer zweiwöchigen Quarantäne;Saarland;
+Maximale Anzahl Personen: 4;Sachsen; Raum
+Maximale Anzahl Personen: 8;Sachsen;
+Maximale Anzahl Haushalte: 2;Sachsen; Raum
+Maximale Anzahl Haushalte: 4;Sachsen;
+Maskenpflicht: Ja;Sachsen;
+Schließungen: Kindergärten, Schulen;Sachsen;
+Maximale Teilnehmerzahl pro m² Fläche: 0.4;Sachsen; Raum
+Maximale Teilnehmerzahl pro m² Fläche: 0.7;Sachsen;
+Die Ausreise in nicht als sicher gekennzeichnete Länder verpflichtet bei Wiederkehr zu einer zweiwöchigen Quarantäne;Sachsen;
+Maximale Anzahl Personen: 6;Sachsen-Anhalt; Raum
+Maximale Anzahl Personen: 12;Sachsen-Anhalt;
+Maximale Anzahl Haushalte: 2;Sachsen-Anhalt; Raum
+Maximale Anzahl Haushalte: 5;Sachsen-Anhalt;
+Maskenpflicht: Ja;Sachsen-Anhalt;
+Schließungen: Kindergärten, Schulen, Bars;Sachsen-Anhalt;
+Maximale Teilnehmerzahl pro m² Fläche: 0.3;Sachsen-Anhalt; Raum
+Maximale Teilnehmerzahl pro m² Fläche: 0.7;Sachsen-Anhalt;
+Die Ausreise in nicht als sicher gekennzeichnete Länder verpflichtet bei Wiederkehr zu einer zweiwöchigen Quarantäne;Sachsen-Anhalt;
+Maximale Anzahl Personen: 6;Schleswig-Holstein; Raum
+Maximale Anzahl Personen: 14;Schleswig-Holstein;
+Maximale Anzahl Haushalte: 2;Schleswig-Holstein; Raum
+Maximale Anzahl Haushalte: 4;Schleswig-Holstein;
+Maskenpflicht: Ja;Schleswig-Holstein;
+Schließungen: Kindergärten;Schleswig-Holstein;
+Maximale Teilnehmerzahl pro m² Fläche: 0.6;Schleswig-Holstein; Raum
+Maximale Teilnehmerzahl pro m² Fläche: 0.9;Schleswig-Holstein;
+Die Ausreise in nicht als sicher gekennzeichnete Länder verpflichtet bei Wiederkehr zu einer zweiwöchigen Quarantäne;Schleswig-Holstein;
+Maximale Anzahl Personen: 3;Thüringen; Raum
+Maximale Anzahl Personen: 7;Thüringen;
+Maximale Anzahl Haushalte: 2;Thüringen; Raum
+Maximale Anzahl Haushalte: 4;Thüringen;
+Maskenpflicht: Ja;Thüringen;
+Schließungen: Kindergärten, Schulen, Bars;Thüringen;
+Maximale Teilnehmerzahl pro m² Fläche: 0.4;Thüringen; Raum
+Maximale Teilnehmerzahl pro m² Fläche: 0.7;Thüringen;
+Die Ausreise in nicht als sicher gekennzeichnete Länder verpflichtet bei Wiederkehr zu einer zweiwöchigen Quarantäne;Thüringen;

@@ -20,7 +20,12 @@ public class CSVReader {
 		List<String[]> decreesListAsString = new ArrayList<>();
 		decreesListAsString = readFromCSV();
 		for (String[] decree : decreesListAsString) {
-			decreeList.add(new DecreeEntity(decree[1], decree[0], decree[2]));
+			System.out.println(decree);
+			if(decree.length < 3) {
+				decreeList.add(new DecreeEntity(decree[1], decree[0], "-"));
+			} else {
+				decreeList.add(new DecreeEntity(decree[1], decree[0], decree[2]));
+			}
 		}
 		return decreeList;
 	}
@@ -47,15 +52,15 @@ public class CSVReader {
 		input = this.getClass().getResourceAsStream("Verordnungen.csv");
 		StringBuilder sb = new StringBuilder();
 		String line;
-		BufferedReader br =  new BufferedReader(new InputStreamReader(this.input));
+		BufferedReader br =  new BufferedReader(new InputStreamReader(this.input, "UTF-8"));
 		while((line = br.readLine()) != null) {
-				sb.append(line + ",");
+				sb.append(line + "#");
 				}	
 		return sb;
 	}
 
 	private String[] seperateDecrees(StringBuilder sbAllDecrees) {
-		return sbAllDecrees.toString().split(",");
+		return sbAllDecrees.toString().split("#");
 	}
 
 	private String[] createDecreeStringArray(String string) {

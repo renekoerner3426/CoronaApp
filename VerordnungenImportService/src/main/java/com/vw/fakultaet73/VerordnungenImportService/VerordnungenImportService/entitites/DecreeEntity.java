@@ -13,8 +13,6 @@ import lombok.NoArgsConstructor;
  * RegulationEntity
  */
 @Entity
-@Data
-@NoArgsConstructor
 public class DecreeEntity {
 	 @Id
 	    @GeneratedValue(strategy = GenerationType.AUTO)

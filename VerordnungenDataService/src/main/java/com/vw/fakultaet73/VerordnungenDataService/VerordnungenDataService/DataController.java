@@ -17,7 +17,6 @@ public class DataController {
     @GetMapping("/decrees")
 	@ResponseStatus(HttpStatus.OK)
 	public  List<DecreeEntity> getDecrees() {
-    	System.out.println("111111111111111111111111" + csvReader.getDecreesList());
 		return csvReader.getDecreesList();
 	}
 }

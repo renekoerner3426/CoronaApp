@@ -36,6 +36,7 @@ public class ReceiveData {
 	private List<DecreeEntity> parse() {
 		RestTemplate restTemplate = new RestTemplate();
 		DecreeEntity[] response = restTemplate.getForObject(this.GET_URL,DecreeEntity[].class);
+		System.out.println("2222222222222222222222222" + response);
 		List<DecreeEntity> decreesList = new ArrayList<>();
 		for (DecreeEntity decreeEntity : response) {
 			decreesList.add(decreeEntity);

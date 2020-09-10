@@ -10,8 +10,6 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Entity
-@Data
-@NoArgsConstructor
 public class DecreeEntity {
 
     @Id
@@ -32,4 +30,42 @@ public class DecreeEntity {
         this.description = description;
         this.regulations = regulation;
     }
+    
+    public DecreeEntity() {
+    	
+    }
+
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
+
+	public String getState() {
+		return state;
+	}
+
+	public void setState(String state) {
+		this.state = state;
+	}
+
+	public String getDescription() {
+		return description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
+	}
+
+	public String getRegulations() {
+		return regulations;
+	}
+
+	public void setRegulations(String regulations) {
+		this.regulations = regulations;
+	}
+    
+    
 }

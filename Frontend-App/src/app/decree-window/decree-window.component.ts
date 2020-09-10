@@ -4,8 +4,9 @@ import { HttpClient } from '@angular/common/http';
 
 
 interface DecreeEntity {
+  id: number;
   description: string;
-  stateID: string;
+  state: string;
   regulations: string;
 }
 
@@ -47,7 +48,7 @@ export class DecreeWindowComponent implements OnInit {
 
   }
   public searchByState(state: string) {
-    this.selectedDecreesByState = this.decrees.filter(decreeEntry => decreeEntry.stateID == state);
+    this.selectedDecreesByState = this.decrees.filter(decreeEntry => decreeEntry.state == state);
     this.selectedDecreesByStateFiltered = this.selectedDecreesByState;
   }
 

@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -30,12 +31,14 @@ public class VerordnungenImportServiceApplication {
 		SpringApplication.run(VerordnungenImportServiceApplication.class, args);
 	}
 	
+	@CrossOrigin("*")
 	@PostMapping("/newDecree")
 	@ResponseStatus(HttpStatus.OK)
 	public  DecreeEntity getDecrees(@RequestBody DecreeEntity decreeEntity) {
 		return importService.save(decreeEntity);
 	}
 	
+	@CrossOrigin("*")
 	@GetMapping("/decrees")
 	@ResponseStatus(HttpStatus.OK)
 	public List<DecreeEntity> getDecrees() {

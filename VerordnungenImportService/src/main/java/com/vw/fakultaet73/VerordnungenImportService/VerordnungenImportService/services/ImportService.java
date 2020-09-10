@@ -23,7 +23,7 @@ public class ImportService {
 		return decreeList;
 	}
 	
-	public DecreeEntity save(DecreeEntity decrees) {
-		return this.decreeRepository.save(decrees);
+	public DecreeEntity save(DecreeEntity decree) {
+		return this.decreeRepository.save(decree);
 	}
 }

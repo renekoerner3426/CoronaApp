@@ -15,9 +15,10 @@
         <div class="tableDiv">
             <div class="entryFieldsDiv">
                 <div>
-                    Bundesland: <select [(ngModel)]="selectedState" (change)="searchByState(selectedState)">
-                                    <option *ngFor="let state of states">{{state}}</option> 
-                                     </select>
+                    Bundesland:
+                    <select [(ngModel)]="selectedState" (change)="searchByState(selectedState)">
+                        <option *ngFor="let state of states">{{state}}</option> 
+                    </select>
                 </div>
                 <div>
                     Beschreibung:
@@ -41,7 +42,7 @@
                         <th>Einschränkungen</th>
                     </tr>
                     <tr *ngFor="let decree of selectedDecreesByStateFiltered">
-                        <td class="decriptionColumn">{{ decree.description }}</td>
+                        <td>{{ decree.description }}</td>
                         <td>{{ decree.regulations }}</td>
                     </tr>
                 </table>

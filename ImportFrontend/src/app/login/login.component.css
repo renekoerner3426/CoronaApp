@@ -20,6 +20,14 @@ button {
     font-size: 24px;
 }
 
+.importButton {
+    padding: 5px;
+}
+
+select {
+    padding: 5px;
+}
+
 .welcomeDiv {
     text-align: center;
     display: block;
@@ -35,9 +43,30 @@ button {
     margin-right: 10px;
 }
 
-.decriptionColumn {
-    overflow: auto;
-    white-space: nowrap;
+table {
+    border-spacing: 5px 5px;
+}
+
+th {
+    background-color: black;
+    color: white;
+    padding: 5px;
+}
+
+td {
+    padding: 5px;
+}
+
+th:hover {
+    background-color: black !important;
+}
+
+tr:nth-child(even) {
+    background-color: darkgray;
+}
+
+tr:hover {
+    background-color: green;
 }
 
 .uploadInput {
@@ -66,5 +95,10 @@ button {
     }
     .loginButton {
         min-width: 300px !important;
+    }
+    .decriptionColumn {
+        overflow: auto;
+        white-space: normal;
+        max-width: 400px;
     }
 }

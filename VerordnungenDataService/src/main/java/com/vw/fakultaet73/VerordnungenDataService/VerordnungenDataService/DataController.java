@@ -16,7 +16,7 @@ public class DataController {
 
     @GetMapping("/decrees")
 	@ResponseStatus(HttpStatus.OK)
-	public  List<Decree> getDecrees() {
+	public  List<DecreeEntity> getDecrees() {
 		return csvReader.getDecreesList();
 	}
 }

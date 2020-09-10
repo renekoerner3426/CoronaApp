@@ -1,5 +1,6 @@
 package com.vw.fakultaet73.VerordnungenDataService.VerordnungenDataService;
 
+
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -8,14 +9,15 @@ import lombok.NoArgsConstructor;
  */
 @Data
 @NoArgsConstructor
-public class Decree {
+public class DecreeEntity {
 
-    private Long id;
+
+    private Long id = 0L;
     private String state;
     private String description;
     private String regulations;
 
-    public Decree(String state, String description, String regulation){
+    public DecreeEntity(String state, String description, String regulation){
         this.state = state;
         this.description = description;
         this.regulations = regulation;

@@ -15,12 +15,12 @@ public class CSVReader {
 
 	InputStream input;
 
-	public List<Decree> getDecreesList() {
-		List<Decree> decreeList = new ArrayList<>();
+	public List<DecreeEntity> getDecreesList() {
+		List<DecreeEntity> decreeList = new ArrayList<>();
 		List<String[]> decreesListAsString = new ArrayList<>();
 		decreesListAsString = readFromCSV();
 		for (String[] decree : decreesListAsString) {
-			decreeList.add(new Decree(decree[1], decree[0], decree[2]));
+			decreeList.add(new DecreeEntity(decree[1], decree[0], decree[2]));
 		}
 		return decreeList;
 	}

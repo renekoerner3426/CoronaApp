@@ -58,16 +58,6 @@ export class LoginComponent implements OnInit {
     })
   }
 
-  basicImport(){
-    this.http.get<DecreeEntity[]>(`http://localhost:8081/maches`).subscribe(({
-      error: error => console.error('basicImport() - could not use ImportService!', error),
-      next: data => data.forEach(element => {
-        this.decrees.push(element);
-        console.log(element);
-      })
-    }))
-  }
-
   public searchByState(state: string) {
     this.selectedDecreesByState = this.decrees.filter(decreeEntry => decreeEntry.state == state);
     this.selectedDecreesByStateFiltered = this.selectedDecreesByState;

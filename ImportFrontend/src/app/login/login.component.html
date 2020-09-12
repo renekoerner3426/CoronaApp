@@ -10,7 +10,7 @@
     <div class="window">
         <div class="welcomeDiv">
             <p>Willkommen im Bereitstellungsmenü für Corona-Verordnungen! Sie können neue Verordnungen ganz einfach über diese Seite erstellen.</p>
-            <button class="importButton" (click)="basicImport()">Import der Standarddaten</button>
+            <a [routerLink]="['import']">Dateiupload</a>
         </div>
         <div class="tableDiv">
             <div class="entryFieldsDiv">

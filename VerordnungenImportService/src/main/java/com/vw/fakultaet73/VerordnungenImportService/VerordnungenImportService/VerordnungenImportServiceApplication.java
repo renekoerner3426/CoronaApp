@@ -35,7 +35,7 @@ public class VerordnungenImportServiceApplication {
 	@PostMapping("/newDecree")
 	@ResponseStatus(HttpStatus.OK)
 	public  DecreeEntity getDecrees(@RequestBody DecreeEntity decreeEntity) {
-		return importService.save(decreeEntity);
+		return importService.addNewDecree(decreeEntity);
 	}
 	
 	@CrossOrigin("*")

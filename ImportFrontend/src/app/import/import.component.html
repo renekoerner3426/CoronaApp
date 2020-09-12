@@ -1,1 +1,11 @@
-
+<div>
+    <p>Hier können Sie Daten uploaden</p><a [routerLink]="['']">zurück</a>
+    <button class="importButton" (click)="import()">Import der Standarddaten</button>
+    <div>
+        <p>Upload je Bundesland</p>
+        <select [(ngModel)]="selectedState">
+            <option *ngFor="let state of states">{{state}}</option> 
+        </select>
+        <button class="importButton" (click)="import()">Import</button>
+    </div>
+</div>

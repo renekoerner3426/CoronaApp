@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import com.vw.fakultaet73.VerordnungenImportService.VerordnungenImportService.entitites.DecreeEntity;
@@ -22,8 +23,9 @@ public class ImportService {
 		savedEntitys.forEach(savedEntity -> decreeList.add(savedEntity));
 		return decreeList;
 	}
-	
-	public DecreeEntity save(DecreeEntity decree) {
-		return this.decreeRepository.save(decree);
+
+	public DecreeEntity addNewDecree(DecreeEntity decree) {
+		DecreeEntity newDecree = this.decreeRepository.save(decree);
+		return newDecree;
 	}
 }

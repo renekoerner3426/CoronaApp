@@ -40,12 +40,6 @@ public class ReceiveData {
 			return this.importService.saveDecrees((parse(state)));
 	}
 	
-	@Scheduled(cron = "0 0 3 * * ?")
-	private void automaticUpload() {
-		this.importService.saveDecrees((parse("")));
-	}
-	
-	
 	
 	private List<DecreeEntity> parse(String state) {
 		RestTemplate restTemplate = new RestTemplate();

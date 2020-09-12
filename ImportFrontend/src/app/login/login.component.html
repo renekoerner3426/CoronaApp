@@ -1,5 +1,5 @@
 <div id="login">
     <input type="text" placeholder="Benutzername" [(ngModel)]="userName" (change)="checkInput()">
     <input type="password" placeholder="Password" [(ngModel)]="userPassword" (change)="checkInput()">
-    <button class="loginButton" (click)="checkForData()"><a [routerLink]="linkEnabled ? ['overview'] : null">Login</a></button>
+    <button class="loginButton" (click)="checkForData()"><a [routerLink]="linkEnabled ? ['/overview'] : null">Login</a></button>
 </div>

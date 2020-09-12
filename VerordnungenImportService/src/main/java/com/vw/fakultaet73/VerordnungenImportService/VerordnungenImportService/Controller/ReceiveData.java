@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
@@ -71,13 +72,29 @@ public class ReceiveData {
 	@PostMapping("/newDecree")
 	@ResponseStatus(HttpStatus.OK)
 	public  DecreeEntity getDecrees(@RequestBody DecreeEntity decreeEntity) {
-		return importService.addNewDecree(decreeEntity);
+		return this.importService.saveDecree(decreeEntity);
 	}
 	
 	@CrossOrigin("*")
 	@GetMapping("/decrees")
 	@ResponseStatus(HttpStatus.OK)
 	public List<DecreeEntity> getDecrees() {
-		return exportService.getDecreeList();
+		return this.exportService.getDecreeList();
 	}
+	
+	@CrossOrigin("*")
+	@PutMapping("/editDecree")
+	@ResponseStatus(HttpStatus.OK)
+	public DecreeEntity editDecree(@RequestBody DecreeEntity decreeEntity) {
+		return this.importService.saveDecree(decreeEntity);
+	}
+	
+	
+	@CrossOrigin("*")
+	@PostMapping("/deleteDecree")
+	@ResponseStatus(HttpStatus.OK)
+	public void deleteDecree(@RequestBody DecreeEntity decreeEntity) {
+	  this.importService.deleteDecree(decreeEntity);
+	}
+	
 }

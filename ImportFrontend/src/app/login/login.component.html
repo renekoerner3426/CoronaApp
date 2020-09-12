@@ -11,12 +11,11 @@
         <div class="welcomeDiv">
             <p>Willkommen im Bereitstellungsmenü für Corona-Verordnungen! Sie können neue Verordnungen ganz einfach über diese Seite erstellen.</p>
             <div class="uploadDiv">
-                <button class="importButton" (click)="basicImport()">Import der Standarddaten</button>
-                <p>Upload je Bundesland</p>
                 <select [(ngModel)]="selectedUploadState">
                     <option *ngFor="let state of states">{{state}}</option> 
                 </select>
-                <button class="importButton" (click)="filteredImport()">Import</button>
+                <button class="importButton" (click)="filteredImport()">Import je Bundesland</button>
+                <button class="importButton" (click)="basicImport()">Import aller Bundesländer</button>
             </div>
 
         </div>
@@ -38,23 +37,39 @@
                 </div>
 
                 <button class="newDecreeButton" (click)="addDecree()">neue Verordnung</button>
-
             </div>
 
             <!-- Verordnungen Edit -->
             <div *ngIf="selectedDecreesByStateFiltered.length > 0; else elseBlock">
                 <h2>Verordnungen für: {{selectedState}}</h2>
                 <table>
-                    <tr>
-                        <th>Beschreibung</th>
-                        <th>Einschränkungen</th>
-                    </tr>
-                    <tr *ngFor="let decree of selectedDecreesByStateFiltered">
-                        <td>{{ decree.description }}</td>
-                        <td>{{ decree.regulations }}</td>
-                        <button>edit</button>
-                        <button>delete</button>
-                    </tr>
+                    <thead>
+                        <tr>
+                            <th>Beschreibung</th>
+                            <th>Einschränkungen</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let decree of selectedDecreesByStateFiltered; index as index">
+                            <td>
+                                <editable (update)="updateField(index, 'description')">
+                                    <ng-template viewMode>{{ decree.description }}</ng-template>
+                                    <ng-template editMode>
+                                        <input [formControl]="getControl(index, 'description')" focusable editableOnEnter>
+                                    </ng-template>
+                                </editable>
+                            </td>
+                            <td>
+                                <editable (update)="updateField(index, 'regulations')">
+                                    <ng-template viewMode>{{ decree.regulations }}</ng-template>
+                                    <ng-template editMode>
+                                        <input [formControl]="getControl(index, 'regulations')" focusable editableOnEnter>
+                                    </ng-template>
+                                </editable>
+                            </td>
+
+                        </tr>
+                    </tbody>
                 </table>
             </div>
         </div>

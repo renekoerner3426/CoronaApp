@@ -24,9 +24,8 @@ public class ImportService {
 		return decreeList;
 	}
 
-	public DecreeEntity addNewDecree(DecreeEntity decree) {
-		DecreeEntity newDecree = this.decreeRepository.save(decree);
-		return newDecree;
+	public DecreeEntity saveDecree(DecreeEntity decree) {
+		return this.decreeRepository.save(decree);
 	}
 	
 	public void deleteAll() {
@@ -45,4 +44,5 @@ public class ImportService {
 			}		
 		});
 	}
+	
 }

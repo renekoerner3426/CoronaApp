@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { FormArray, FormControl, FormGroup, Validators } from '@angular/forms';
 
 interface DecreeEntity {
   description: string;
@@ -18,18 +19,23 @@ export class LoginComponent implements OnInit {
   userName: string;
   userPassword: string ;
 
+  deleteUrl = "http://localhost:8081/deleteDecree";
+  editUrl = "http://localhost:8081/editDecree";
   decreeUrl = "http://localhost:8081/newDecree";
   importUrl = "http://localhost:8081/maches";
 
   //Filterfunction
   selectedDecreesByState = [];
   selectedDecreesByStateFiltered = [];
-  searchWords;
-
-  selectedState: string;
-  selectedUploadState: string
   descriptionDecree: string;
   regulationsDecree: string;
+  searchWords;
+
+  selectedState: string = "Niedersachsen";
+  selectedUploadState: string = "Niedersachsen";
+  selectedDecree: DecreeEntity;
+
+  controls: FormArray;
 
   decrees: DecreeEntity[] = [];
 
@@ -43,6 +49,13 @@ export class LoginComponent implements OnInit {
   constructor(private http: HttpClient) { }
 
   ngOnInit(): void {
+    const toGroups = this.decrees.map(decree => {
+      return new FormGroup({
+        description: new FormControl(decree.description, Validators.required),
+        regulations: new FormControl(decree.regulations)
+      });
+    });
+    this.controls = new FormArray(toGroups);
   }
 
   login() {
@@ -86,5 +99,38 @@ export class LoginComponent implements OnInit {
 
   public searchByRegulations(regulations: string) {
     this. selectedDecreesByStateFiltered = this.selectedDecreesByState.filter(decreeEntry => !decreeEntry.regulations.search(regulations));
+  }
+
+  public getControl(index: number, field: string): FormControl {
+    return this.controls.at(index).get(field) as FormControl;
+  }
+
+  public updateDecree(decree: DecreeEntity){
+    return this.http.put<DecreeEntity>(this.editUrl, decree).subscribe({
+      error: error => console.error('addDecree() - could not use ImportService!', error)
+    })
+  }
+
+  public deleteDecree(decree: DecreeEntity){
+    return this.http.put<DecreeEntity>(this.deleteUrl, decree).subscribe({
+      error: error => console.error('addDecree() - could not use ImportService!', error)
+    })
+  }
+
+  public updateField(index: number, field: string) {
+    const control = this.getControl(index, field);
+
+    if (control.valid) {
+      this.decrees = this.decrees.map((e, i) => {
+        if (index === i) {
+          return {
+            ...e,
+            [field]: control.value 
+          }
+        }
+        this.updateDecree(e);
+        return e;
+      });
+    }
   }
 }

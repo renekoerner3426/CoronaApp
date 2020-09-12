@@ -33,7 +33,6 @@ public class ReceiveData {
 	
 	private final String GET_URL = "http://dataservice:8080/decrees";
 	
-	@Scheduled(cron = "0 0 3 * * ?")
 	@CrossOrigin("*")
 	@GetMapping("/maches/{state}")
 	@ResponseStatus(HttpStatus.OK)
@@ -41,11 +40,18 @@ public class ReceiveData {
 			return this.importService.saveDecrees((parse(state)));
 	}
 	
+	@Scheduled(cron = "0 0 3 * * ?")
+	private void automaticUpload() {
+		this.importService.saveDecrees((parse("")));
+	}
+	
+	
+	
 	private List<DecreeEntity> parse(String state) {
 		RestTemplate restTemplate = new RestTemplate();
 		restTemplate.getMessageConverters().add(0, new StringHttpMessageConverter(Charset.forName("UTF-8")));
 		DecreeEntity[] response;
-		if(state.length() == 0) {
+		if(state.length() == 0 || state == null) {
 			response = restTemplate.getForObject(this.GET_URL,DecreeEntity[].class);
 		} else {
 			String URL = this.GET_URL + "/" + state;

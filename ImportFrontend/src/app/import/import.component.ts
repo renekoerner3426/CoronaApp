@@ -30,7 +30,6 @@ export class ImportComponent implements OnInit {
   }
 
   import(){
-    if(this.selectedState == null || this.selectedState.length == 0) {
       this.http.get<DecreeEntity[]>(`http://localhost:8081/maches`).subscribe(({
         error: error => console.error('basicImport() - could not use ImportService!', error),
         next: data => data.forEach(element => {
@@ -38,16 +37,16 @@ export class ImportComponent implements OnInit {
           console.log(element);
         })
       }))
-    }
-     else {
-      this.http.get<DecreeEntity[]>(`http://localhost:8081/maches` + '/' + this.selectedState).subscribe(({
-        error: error => console.error('basicImport() - could not use ImportService!', error),
-        next: data => data.forEach(element => {
-          this.decrees.push(element);
-          console.log(element);
-        })
-      }))
-    }
+  }
+
+  filteredImport(){
+    this.http.get<DecreeEntity[]>(`http://localhost:8081/maches` + '/' + this.selectedState).subscribe(({
+      error: error => console.error('basicImport() - could not use ImportService!', error),
+      next: data => data.forEach(element => {
+        this.decrees.push(element);
+        console.log(element);
+      })
+    }))
   }
 
 }

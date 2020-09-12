@@ -36,10 +36,16 @@ public class ReceiveData {
 	@CrossOrigin("*")
 	@GetMapping("/maches/{state}")
 	@ResponseStatus(HttpStatus.OK)
-	public List<DecreeEntity> saveList(@PathVariable String state) {
+	public List<DecreeEntity> saveFilteredList(@PathVariable String state) {
 			return this.importService.saveDecrees((parse(state)));
 	}
 	
+	@CrossOrigin("*")
+	@GetMapping("/maches")
+	@ResponseStatus(HttpStatus.OK)
+	public List<DecreeEntity> saveList() {
+			return this.importService.saveDecrees((parse("")));
+	}
 	
 	private List<DecreeEntity> parse(String state) {
 		RestTemplate restTemplate = new RestTemplate();

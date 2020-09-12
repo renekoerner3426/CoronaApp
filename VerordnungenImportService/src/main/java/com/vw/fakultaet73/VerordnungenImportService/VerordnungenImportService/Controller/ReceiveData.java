@@ -3,14 +3,11 @@ package com.vw.fakultaet73.VerordnungenImportService.VerordnungenImportService.C
 import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.StringHttpMessageConverter;
 import org.springframework.scheduling.annotation.EnableScheduling;
-import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -21,6 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
 
 import com.vw.fakultaet73.VerordnungenImportService.VerordnungenImportService.entitites.DecreeEntity;
+import com.vw.fakultaet73.VerordnungenImportService.VerordnungenImportService.services.ExportService;
 import com.vw.fakultaet73.VerordnungenImportService.VerordnungenImportService.services.ImportService;
 
 
@@ -31,20 +29,25 @@ public class ReceiveData {
 	@Autowired
 	private ImportService importService;
 	
+	@Autowired
+	ExportService exportService;
+	
 	private final String GET_URL = "http://dataservice:8080/decrees";
 	
 	@CrossOrigin("*")
 	@GetMapping("/maches/{state}")
 	@ResponseStatus(HttpStatus.OK)
 	public List<DecreeEntity> saveFilteredList(@PathVariable String state) {
-			return this.importService.saveDecrees((parse(state)));
+		this.importService.deletePerState(state);
+		return this.importService.saveDecrees((parse(state)));
 	}
 	
 	@CrossOrigin("*")
 	@GetMapping("/maches")
 	@ResponseStatus(HttpStatus.OK)
 	public List<DecreeEntity> saveList() {
-			return this.importService.saveDecrees((parse("")));
+		this.importService.deleteAll();
+		return this.importService.saveDecrees((parse("")));
 	}
 	
 	private List<DecreeEntity> parse(String state) {
@@ -56,8 +59,7 @@ public class ReceiveData {
 		} else {
 			String URL = this.GET_URL + "/" + state;
 			response = restTemplate.getForObject(URL,DecreeEntity[].class);
-		}
-		
+		}		
 		List<DecreeEntity> decreesList = new ArrayList<>();
 		for (DecreeEntity decreeEntity : response) {
 			decreesList.add(decreeEntity);
@@ -65,4 +67,17 @@ public class ReceiveData {
 		return decreesList;
 	}
 	
+	@CrossOrigin("*")
+	@PostMapping("/newDecree")
+	@ResponseStatus(HttpStatus.OK)
+	public  DecreeEntity getDecrees(@RequestBody DecreeEntity decreeEntity) {
+		return importService.addNewDecree(decreeEntity);
+	}
+	
+	@CrossOrigin("*")
+	@GetMapping("/decrees")
+	@ResponseStatus(HttpStatus.OK)
+	public List<DecreeEntity> getDecrees() {
+		return exportService.getDecreeList();
+	}
 }

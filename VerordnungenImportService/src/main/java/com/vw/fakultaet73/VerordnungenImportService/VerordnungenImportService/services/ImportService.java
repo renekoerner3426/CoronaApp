@@ -28,4 +28,21 @@ public class ImportService {
 		DecreeEntity newDecree = this.decreeRepository.save(decree);
 		return newDecree;
 	}
+	
+	public void deleteAll() {
+		this.decreeRepository.deleteAll();
+	}
+	
+	public void deleteDecree(DecreeEntity decree) {
+		this.decreeRepository.delete(decree);
+	}
+	
+	public void deletePerState(String state) {
+		Iterable<DecreeEntity> savedEntitys = this.decreeRepository.findAll();		
+		savedEntitys.forEach(savedEntity -> {
+			if(savedEntity.getState().equals(state)) {
+				this.decreeRepository.delete(savedEntity);
+			}		
+		});
+	}
 }

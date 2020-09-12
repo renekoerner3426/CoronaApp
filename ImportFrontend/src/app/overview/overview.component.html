@@ -1,1 +1,47 @@
-<p>overview works!</p>
+<div class="window">
+    <div class="welcomeDiv">
+        <p>Willkommen im Bereitstellungsmenü für Corona-Verordnungen! Sie können neue Verordnungen ganz einfach über diese Seite erstellen.</p>
+        <a [routerLink]="['import']">Dateiupload</a>
+    </div>
+    <div class="tableDiv">
+        <div class="entryFieldsDiv">
+            <div>
+                Bundesland:
+                <select [(ngModel)]="selectedState" (change)="searchByState(selectedState)">
+                    <option *ngFor="let state of states">{{state}}</option> 
+                </select>
+            </div>
+            <div>
+                Beschreibung:
+                <input class="uploadInput" type="text" placeholder="z.B.: Mindestabstand 3m" [(ngModel)]="descriptionDecree">
+            </div>
+            <div class="regulationDiv">
+                Einschränkungen:
+                <input class="uploadInput" type="text" placeholder="z.B.: Fußball draußen" [(ngModel)]="regulationsDecree">
+            </div>
+
+            <button class="newDecreeButton" (click)="addDecree()">neue Verordnung</button>
+
+        </div>
+
+        <!-- Verordnungen Edit -->
+        <div *ngIf="selectedDecreesByStateFiltered.length > 0; else elseBlock">
+            <h2>Verordnungen für: {{selectedState}}</h2>
+            <table>
+                <tr>
+                    <th>Beschreibung</th>
+                    <th>Einschränkungen</th>
+                </tr>
+                <tr *ngFor="let decree of selectedDecreesByStateFiltered">
+                    <td>{{ decree.description }}</td>
+                    <td>{{ decree.regulations }}</td>
+                    <button>edit</button>
+                    <button>delete</button>
+                </tr>
+            </table>
+        </div>
+    </div>
+    <ng-template #elseBlock>
+        <p class="noDataText">Ooops! Es konnten keine Verordnungen gefunden werden...</p>
+    </ng-template>
+</div>

@@ -7,19 +7,28 @@ import { Component, OnInit } from '@angular/core';
 })
 export class LoginComponent implements OnInit {
 
-  loggedIn: boolean = false;
+  correctData: boolean = false;
   userName: string;
   userPassword: string ;
+  warningVisible: boolean = false;
 
   constructor() { }
 
   ngOnInit(): void {
   }
 
-  login() {
+  public checkData() {
     if(this.userName == "admin" && this.userPassword == "admin") {
-      this.loggedIn = true;
+      this.correctData = true;
+      return true;
+    } else {
+      return false;
     }
   }
-
+  
+  public login() {
+    if(!this.checkData()) {
+      this.warningVisible = true;
+    }
+  }
 }

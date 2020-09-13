@@ -18,10 +18,9 @@
     </div>
 </div>
 
-<!-- Main Content -->
-<div class="window">
-    <div class="welcomeDiv">
-        <p>Willkommen im Bereitstellungsmenü für Corona-Verordnungen! Sie können neue Verordnungen ganz einfach über diese Seite erstellen.</p>
+<div *ngIf="importPopupVisible" class="importPopupWindow">
+    <div class="importPopupContent">
+        <h3>Datenimport</h3>
         <div class="uploadDiv">
             <select [(ngModel)]="selectedUploadState">
                 <option *ngFor="let state of states">{{state}}</option> 
@@ -29,7 +28,15 @@
             <button class="importButton" (click)="filteredImport()">Import je Bundesland</button>
             <button class="importButton" (click)="basicImport()">Import aller Bundesländer</button>
         </div>
+        <button (click)="closeImportPopup()">Fertig</button>
+    </div>
+</div>
 
+<!-- Main Content -->
+<div class="window">
+    <div class="welcomeDiv">
+        <p>Willkommen im Bereitstellungsmenü für Corona-Verordnungen! Sie können neue Verordnungen ganz einfach über diese Seite erstellen.</p>
+        <button (click)="openImportPopup()">Import</button>
     </div>
 
     <!-- Verordnungen add -->

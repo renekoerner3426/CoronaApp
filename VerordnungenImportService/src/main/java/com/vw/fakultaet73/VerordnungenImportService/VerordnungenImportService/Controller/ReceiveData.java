@@ -89,7 +89,6 @@ public class ReceiveData {
 		return this.importService.saveDecree(decreeEntity);
 	}
 	
-	
 	@CrossOrigin("*")
 	@PostMapping("/deleteDecree")
 	@ResponseStatus(HttpStatus.OK)

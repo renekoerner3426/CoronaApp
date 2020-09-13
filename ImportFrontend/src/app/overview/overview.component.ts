@@ -73,28 +73,22 @@ export class OverviewComponent implements OnInit {
      this.http.post<DecreeEntity>(this.decreeUrl, decree).subscribe({
       next: data => {
         this.decreeCreated = data.id;
-        this.updateDecreeList();
       },
       error: error => console.error('addDecree() - could not use ImportService!', error)
     }); 
-    this.updateDecreeList();
-    location.reload();
+    this.decrees.push(decree);
   }
 
   basicImport(){
     this.importPopupVisible = false;
      this.http.get<DecreeEntity[]>(`http://localhost:8081/maches`).subscribe(({
       error: error => console.error('basicImport() - could not use ImportService!', error)}));
-      this.updateDecreeList();
-      location.reload();
   }
 
   filteredImport(){
     this.importPopupVisible = false;
      this.http.get<DecreeEntity[]>(`http://localhost:8081/maches` + '/' + this.selectedUploadState).subscribe(({
       error: error => console.error('basicImport() - could not use ImportService!', error)}));
-      this.updateDecreeList();
-      location.reload();
   }
 
   public searchByState(state: string) {
@@ -119,8 +113,9 @@ export class OverviewComponent implements OnInit {
     this.http.post<DecreeEntity>(this.deleteUrl, decree).subscribe({
       error: error => console.error('deleteDecree() - could not use ImportService!', error)
     });
-    this.updateDecreeList();
-    location.reload();
+    this.decrees = this.decrees.filter(element => {
+      element.id != decree.id
+    });
   }
 
   public openDecreeEditor(decree: DecreeEntity){

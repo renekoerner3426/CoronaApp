@@ -17,7 +17,6 @@ public class ExportService {
 	
 	public List<DecreeEntity> getDecreeList() {
 		Iterable<DecreeEntity> savedEntitys = this.decreeRepository.findAll();
-		
 		List<DecreeEntity> decreeList = new ArrayList<>();
 		savedEntitys.forEach(savedEntity -> decreeList.add(savedEntity));
 		return decreeList;

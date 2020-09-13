@@ -1,55 +1,7 @@
 <!-- Login -->
-<div id="login" *ngIf="loggedIn == false; else elseBlock">
-    <input type="text" placeholder="Benutzername" [(ngModel)]="userName">
-    <input type="password" placeholder="Password" [(ngModel)]="userPassword">
-    <button class="loginButton" (click)="login()">Login</button>
+<div id="login">
+    <input type="text" placeholder="Benutzername" [(ngModel)]="userName" (change)="checkData()">
+    <input type="password" placeholder="Password" [(ngModel)]="userPassword" (change)="checkData()">
+    <button (click)="login()" class="loginButton"><a [routerLink]="correctData ? '/overview' : null">Login</a></button>
 </div>
-
-<!-- Verordnungen new -->
-<ng-template #elseBlock>
-    <div class="window">
-        <div class="welcomeDiv">
-            <p>Willkommen im Bereitstellungsmenü für Corona-Verordnungen! Sie können neue Verordnungen ganz einfach über diese Seite erstellen.</p>
-            <button class="importButton" (click)="basicImport()">Import der Standarddaten</button>
-        </div>
-        <div class="tableDiv">
-            <div class="entryFieldsDiv">
-                <div>
-                    Bundesland:
-                    <select [(ngModel)]="selectedState" (change)="searchByState(selectedState)">
-                        <option *ngFor="let state of states">{{state}}</option> 
-                    </select>
-                </div>
-                <div>
-                    Beschreibung:
-                    <input class="uploadInput" type="text" placeholder="z.B.: Mindestabstand 3m" [(ngModel)]="descriptionDecree">
-                </div>
-                <div class="regulationDiv">
-                    Einschränkungen:
-                    <input class="uploadInput" type="text" placeholder="z.B.: Fußball draußen" [(ngModel)]="regulationsDecree">
-                </div>
-
-                <button class="newDecreeButton" (click)="addDecree()">neue Verordnung</button>
-
-            </div>
-
-            <!-- Verordnungen Edit -->
-            <div *ngIf="selectedDecreesByStateFiltered.length > 0; else elseBlock">
-                <h2>Verordnungen für: {{selectedState}}</h2>
-                <table>
-                    <tr>
-                        <th>Beschreibung</th>
-                        <th>Einschränkungen</th>
-                    </tr>
-                    <tr *ngFor="let decree of selectedDecreesByStateFiltered">
-                        <td>{{ decree.description }}</td>
-                        <td>{{ decree.regulations }}</td>
-                    </tr>
-                </table>
-            </div>
-        </div>
-        <ng-template #elseBlock>
-            <p class="noDataText">Ooops! Es konnten keine Verordnungen gefunden werden...</p>
-        </ng-template>
-    </div>
-</ng-template>
+<p *ngIf="warningVisible">Falsche Login Daten</p>

@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import com.vw.fakultaet73.VerordnungenImportService.VerordnungenImportService.entitites.DecreeEntity;
@@ -22,8 +23,28 @@ public class ImportService {
 		savedEntitys.forEach(savedEntity -> decreeList.add(savedEntity));
 		return decreeList;
 	}
-	
-	public DecreeEntity save(DecreeEntity decree) {
+
+	public DecreeEntity saveDecree(DecreeEntity decree) {
 		return this.decreeRepository.save(decree);
 	}
+	
+	public void deleteAll() {
+		this.decreeRepository.deleteAll();
+		System.out.println("GELÖSCHT!!!!????????" + this.decreeRepository.findAll());
+	}
+	
+	public void deleteDecree(DecreeEntity decree) {
+		this.decreeRepository.delete(decree);
+		System.out.println("EINZELNGELÖSCHT!!!!?????????" + this.decreeRepository.findById(decree.getId()));
+	}
+	
+	public void deletePerState(String state) {
+		Iterable<DecreeEntity> savedEntitys = this.decreeRepository.findAll();		
+		savedEntitys.forEach(savedEntity -> {
+			if(savedEntity.getState().equals(state)) {
+				this.decreeRepository.delete(savedEntity);
+			}		
+		});
+	}
+	
 }

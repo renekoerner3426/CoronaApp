@@ -20,13 +20,9 @@ public class DecreeService {
 
 	private List<DecreeEntity> decreeList = new ArrayList<>();
 
-	public void loadDecreeList() {
+	public List<DecreeEntity> getDecreesList(){
 		Iterable<DecreeEntity> savedEntitys = this.decreeRepository.findAll();	
 		savedEntitys.forEach(savedEntity -> this.decreeList.add(savedEntity));
-	}
-
-	public List<DecreeEntity> getDecreesList(){
-		loadDecreeList();
 		return this.decreeList;
 	}
 }

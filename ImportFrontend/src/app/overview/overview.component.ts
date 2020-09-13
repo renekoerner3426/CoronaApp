@@ -39,12 +39,8 @@ export class OverviewComponent implements OnInit {
   editingRegulations: string;
   editingState: string;
   popupVisible: boolean = false;
-  // Get the modal
 
-  decrees: DecreeEntity[] = [ 
-    {id: 7, state:"Bayern", description:"Bratwurst", regulations:"nicht vor 9"},
-    {id: 3, state:"Bayern", description:"Bier", regulations:"so viel wie geht"}
-  ];
+  decrees: DecreeEntity[] = [];
 
   decreeCreated: number;
 
@@ -100,16 +96,15 @@ export class OverviewComponent implements OnInit {
     this.selectedDecree.description = this.editingDescription;
     this.selectedDecree.regulations = this.editingRegulations;
     this.popupVisible = false;
-   /*  return this.http.put<DecreeEntity>(this.editUrl, this.selectedDecree).subscribe({
-      error: error => console.error('addDecree() - could not use ImportService!', error)
-    }) */
+    return this.http.put<DecreeEntity>(this.editUrl, this.selectedDecree).subscribe({
+      error: error => console.error('updateDecree() - could not use ImportService!', error)
+    })
   }
 
   public deleteDecree(decree: DecreeEntity){
-    console.log(decree);
-/*     return this.http.post<DecreeEntity>(this.deleteUrl, decree).subscribe({
-      error: error => console.error('addDecree() - could not use ImportService!', error)
-    }) */
+    return this.http.post<DecreeEntity>(this.deleteUrl, decree).subscribe({
+      error: error => console.error('deleteDecree() - could not use ImportService!', error)
+    })
   }
 
   public openDecreeEditor(decree: DecreeEntity){

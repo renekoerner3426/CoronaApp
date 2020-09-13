@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { element } from 'protractor';
 
 interface DecreeEntity {
   description: string;
@@ -66,12 +65,11 @@ export class OverviewComponent implements OnInit {
         this.decrees.push(element);
         console.log(element);
       })
-    }))
+    }));
   }
 
   addDecree() {
     let decree: DecreeEntity = {id: 0, state: this.selectedState, description: this.descriptionDecree, regulations: this.regulationsDecree }
-    this.decrees.push(decree);
      this.http.post<DecreeEntity>(this.decreeUrl, decree).subscribe({
       next: data => {
         this.decreeCreated = data.id;
@@ -80,7 +78,7 @@ export class OverviewComponent implements OnInit {
       error: error => console.error('addDecree() - could not use ImportService!', error)
     }); 
     this.updateDecreeList();
-    this.ngOnInit();
+    location.reload();
   }
 
   basicImport(){
@@ -88,7 +86,7 @@ export class OverviewComponent implements OnInit {
      this.http.get<DecreeEntity[]>(`http://localhost:8081/maches`).subscribe(({
       error: error => console.error('basicImport() - could not use ImportService!', error)}));
       this.updateDecreeList();
-      
+      location.reload();
   }
 
   filteredImport(){
@@ -96,7 +94,7 @@ export class OverviewComponent implements OnInit {
      this.http.get<DecreeEntity[]>(`http://localhost:8081/maches` + '/' + this.selectedUploadState).subscribe(({
       error: error => console.error('basicImport() - could not use ImportService!', error)}));
       this.updateDecreeList();
-      
+      location.reload();
   }
 
   public searchByState(state: string) {
@@ -118,13 +116,11 @@ export class OverviewComponent implements OnInit {
   }
 
   public deleteDecree(decree: DecreeEntity){
-    const index = this.decrees.findIndex(d => d.id === decree.id);
-    this.decrees.splice(index, 1);
     this.http.post<DecreeEntity>(this.deleteUrl, decree).subscribe({
       error: error => console.error('deleteDecree() - could not use ImportService!', error)
     });
     this.updateDecreeList();
-    this.ngOnInit();
+    location.reload();
   }
 
   public openDecreeEditor(decree: DecreeEntity){

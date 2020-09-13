@@ -30,10 +30,12 @@ public class ImportService {
 	
 	public void deleteAll() {
 		this.decreeRepository.deleteAll();
+		System.out.println("GELÖSCHT!!!!????????" + this.decreeRepository.findAll());
 	}
 	
 	public void deleteDecree(DecreeEntity decree) {
 		this.decreeRepository.delete(decree);
+		System.out.println("EINZELNGELÖSCHT!!!!?????????" + this.decreeRepository.findById(decree.getId()));
 	}
 	
 	public void deletePerState(String state) {

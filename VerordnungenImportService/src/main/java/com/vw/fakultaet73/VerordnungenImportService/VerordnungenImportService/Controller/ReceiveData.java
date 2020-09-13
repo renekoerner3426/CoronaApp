@@ -83,7 +83,7 @@ public class ReceiveData {
 	}
 	
 	@CrossOrigin("*")
-	@PutMapping("/editDecree")
+	@PostMapping("/editDecree")
 	@ResponseStatus(HttpStatus.OK)
 	public DecreeEntity editDecree(@RequestBody DecreeEntity decreeEntity) {
 		return this.importService.saveDecree(decreeEntity);

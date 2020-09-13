@@ -5,22 +5,15 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { LoginComponent } from './login/login.component';
-import { EditModeDirective } from './editable/edit-mode.directive';
-import { ViewModeDirective } from './editable/view-mode.directive';
-import { EditableOnEnterDirective } from './editable/editable-on-enter.directive';
 import { FocusableDirective } from './login/focusable.directive';
-import { EditableComponent } from './editable/editable.component';
+import { OverviewComponent } from './overview/overview.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
-    EditModeDirective,
-    ViewModeDirective,
-    EditModeDirective,
-    EditableOnEnterDirective,
     FocusableDirective,
-    EditableComponent
+    OverviewComponent
   ],
   imports: [
     BrowserModule,

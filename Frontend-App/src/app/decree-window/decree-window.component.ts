@@ -37,6 +37,14 @@ export class DecreeWindowComponent implements OnInit {
   selectedState="keine Auswahl";
   searchWords;
 
+  //event
+  eventPopupVisible: boolean = false;
+  persons: number;
+  area: number;
+  outside: boolean;
+  selectedEventState: string;
+  allowedVisible: boolean;
+  notAllowedVisible: boolean;
 
   ngOnInit() {
     this.decrees = [];
@@ -62,4 +70,18 @@ export class DecreeWindowComponent implements OnInit {
     return decreeEntity
   } 
 
+  public openEventPopup() {
+    this.eventPopupVisible = true;
+  }
+
+  public closeEventPopup() {
+    this.eventPopupVisible = false;
+    this.allowedVisible = false;
+    this.notAllowedVisible = false;
+  }
+
+  public calculate() {
+  this.allowedVisible = true;
+  this.notAllowedVisible = true;
+  }
 }

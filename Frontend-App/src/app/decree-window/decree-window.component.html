@@ -5,6 +5,38 @@
         <p>Für<b> jedes</b> Bundesland</p>
     </div>
 
+    <!-- Popup-->
+
+    <div *ngIf="eventPopupVisible" class="eventPopupWindow">
+        <div class="eventPopupContent">
+            <h3>Eventplanung</h3>
+            <div class="fieldDiv">
+                <div class="stateDiv">
+                    <p class="eventP">Bundesland</p>
+                    <select [(ngModel)]="selectedEventState">
+                        <option  *ngFor="let state of states">{{state}}</option>
+                    </select>
+                </div>
+                <div class="personDiv">
+                    <p class="eventP">Personenanzahl:</p>
+                    <input [(ngModel)]="persons" type="number" placeholder="20" name="persons">
+                </div>
+                <div class="areaDiv">
+                    <p class="eventP">Fläche:</p>
+                    <input [(ngModel)]="area" type="number" placeholder="50" name="area"> m²
+                </div>
+                <div class="insideOutsideDiv">
+                    <p class="eventP">Außernveranstaltung:</p>
+                    <input class="outsideCheckbox" [(ngModel)]="outside" type="checkbox" name="outside">
+                    <button class="calculateButton" (click)="calculate()">Berechnen</button>
+                </div>
+                <p class="allowedText" *ngIf="allowedVisible">Veranstaltung darf stattfinden</p>
+                <p class="notAllowedText" *ngIf="notAllowedVisible">Veranstaltungen darf nicht stattfinden</p>
+            </div>
+            <button (click)="closeEventPopup()">Fertig</button>
+        </div>
+    </div>
+
     <!-- Navigation Bar -->
     <nav>
         <h1>Bundesland auswählen: </h1>
@@ -15,6 +47,7 @@
             <input [(ngModel)]="searchWords" type="text" placeholder="Search.." name="search">
             <button (click)="searchByRegulations(searchWords)">🔎</button>
         </div>
+        <button class="eventButton" (click)="openEventPopup()">Eventplaner</button>
     </nav>
 
     <!-- Content -->

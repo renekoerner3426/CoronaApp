@@ -66,18 +66,19 @@
             <table>
                 <thead>
                     <tr>
+                        <th *ngIf="allStatesVisible">Bundesland</th>
                         <th>Beschreibung</th>
                         <th>Einschränkungen</th>
                     </tr>
                 </thead>
                 <tbody>
-                    <tr *ngFor="let decree of selectedDecreesByStateFiltered; index as index" [(ngModel)]="selectedDecreesByStateFiltered">
+                    <tr *ngFor="let decree of selectedDecreesByStateFiltered; index as index">
+                        <td *ngIf="allStatesVisible">{{decree.state}}</td>
                         <td>{{ decree.description }}</td>
                         <td>{{ decree.regulations }}</td>
                         <td class="buttonColumn"> <button class="editButton" (click)="openDecreeEditor(decree)">edit</button>
                             <button class="deleteButton" (click)="deleteDecree(decree)">delete</button>
                         </td>
-
                     </tr>
                 </tbody>
             </table>

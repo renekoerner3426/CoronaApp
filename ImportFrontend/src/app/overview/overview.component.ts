@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { BehaviorSubject, Subject } from 'rxjs';
 
 interface DecreeEntity {
   description: string;
@@ -15,8 +16,6 @@ interface DecreeEntity {
 })
 export class OverviewComponent implements OnInit {
 
-
-
   deleteUrl = "http://localhost:8081/deleteDecree";
   editUrl = "http://localhost:8081/editDecree";
   decreeUrl = "http://localhost:8081/newDecree";
@@ -24,6 +23,7 @@ export class OverviewComponent implements OnInit {
   getDecreesUrl = "http://localhost:8081/decrees";
 
   //Filterfunction
+  allStatesVisible: boolean = true;
   selectedDecreesByState = [];
   selectedDecreesByStateFiltered = [];
   descriptionDecree: string;
@@ -42,6 +42,7 @@ export class OverviewComponent implements OnInit {
   editingState: string;
   popupVisible: boolean = false;
 
+  //all
   decrees: DecreeEntity[] = [];
 
   decreeCreated: number;
@@ -55,6 +56,7 @@ export class OverviewComponent implements OnInit {
 
   ngOnInit(): void {
     this.updateDecreeList();
+    this.selectedDecreesByStateFiltered = this.decrees;
   }
 
   public updateDecreeList() {
@@ -92,6 +94,7 @@ export class OverviewComponent implements OnInit {
   }
 
   public searchByState(state: string) {
+    this.allStatesVisible = false;
     this.selectedDecreesByState = this.decrees.filter(decreeEntry => decreeEntry.state == state);
     this.selectedDecreesByStateFiltered = this.selectedDecreesByState;
   }
@@ -113,7 +116,9 @@ export class OverviewComponent implements OnInit {
     this.http.post<DecreeEntity>(this.deleteUrl, decree).subscribe({
       error: error => console.error('deleteDecree() - could not use ImportService!', error)
     });
-    this.decrees.filter(element => element !== decree);
+    this.decrees = this.decrees.splice(this.decrees.indexOf(decree), 1);
+    this.selectedDecreesByState = this.selectedDecreesByState.splice(this.selectedDecreesByState.indexOf(decree), 1);
+    this.selectedDecreesByStateFiltered = this.selectedDecreesByStateFiltered.splice(this.selectedDecreesByStateFiltered.indexOf(decree), 1);
   }
 
   public openDecreeEditor(decree: DecreeEntity){

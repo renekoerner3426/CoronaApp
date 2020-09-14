@@ -22,9 +22,9 @@ public class CSVReader {
 		for (String[] decree : decreesListAsString) {
 			System.out.println(decree);
 			if(decree.length < 3) {
-				decreeList.add(new DecreeEntity(decree[1], decree[0], "-"));
+				decreeList.add(new DecreeEntity(decree[1].trim(), decree[0].trim(), "-"));
 			} else {
-				decreeList.add(new DecreeEntity(decree[1], decree[0], decree[2]));
+				decreeList.add(new DecreeEntity(decree[1].trim(), decree[0].trim(), decree[2].trim()));
 			}
 		}
 		return decreeList;

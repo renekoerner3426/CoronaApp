@@ -1,5 +1,4 @@
 com\vw\fakultaet73\VerordnungenBackend\persistance\controller\rest\DecreeController.class
-com\vw\fakultaet73\VerordnungenBackend\persistance\repositories\DecreeRepository.class
-com\vw\fakultaet73\VerordnungenBackend\persistance\DecreeEntity.class
-com\vw\fakultaet73\VerordnungenBackend\VerordnungenBackendApplication.class
 com\vw\fakultaet73\VerordnungenBackend\service\DecreeService.class
+com\vw\fakultaet73\VerordnungenBackend\persistance\repositories\DecreeRepository.class
+com\vw\fakultaet73\VerordnungenBackend\VerordnungenBackendApplication.class

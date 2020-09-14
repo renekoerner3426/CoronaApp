@@ -71,7 +71,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr *ngFor="let decree of selectedDecreesByStateFiltered; index as index">
+                    <tr *ngFor="let decree of selectedDecreesByStateFiltered; index as index" [(ngModel)]="selectedDecreesByStateFiltered">
                         <td>{{ decree.description }}</td>
                         <td>{{ decree.regulations }}</td>
                         <td class="buttonColumn"> <button class="editButton" (click)="openDecreeEditor(decree)">edit</button>

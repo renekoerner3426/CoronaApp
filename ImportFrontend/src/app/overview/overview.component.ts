@@ -58,14 +58,14 @@ export class OverviewComponent implements OnInit {
   }
 
   public updateDecreeList() {
-    this.decrees = [];
-     return this.http.get<DecreeEntity[]>(`http://localhost:8081/decrees`).subscribe(({
+     this.http.get<DecreeEntity[]>(`http://localhost:8081/decrees`).subscribe(({
       error: error => console.error('updateDecreeList() - could not use ImportService!', error),
       next: data => data.forEach(element => {
         this.decrees.push(element);
         console.log(element);
       })
     }));
+    this.decrees = this.decrees.filter((element, i) => i === this.decrees.indexOf(element))
   }
 
   addDecree() {
@@ -113,9 +113,7 @@ export class OverviewComponent implements OnInit {
     this.http.post<DecreeEntity>(this.deleteUrl, decree).subscribe({
       error: error => console.error('deleteDecree() - could not use ImportService!', error)
     });
-    this.decrees = this.decrees.filter(element => {
-      element.id != decree.id
-    });
+    this.decrees.filter(element => element !== decree);
   }
 
   public openDecreeEditor(decree: DecreeEntity){

@@ -39,6 +39,7 @@ export class DecreeWindowComponent implements OnInit {
 
 
   ngOnInit() {
+    this.decrees = [];
      this.getDecreesFromDB().subscribe((data)=>{
     data.forEach(element => {
         this.decrees.push(element);

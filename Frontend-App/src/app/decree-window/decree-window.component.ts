@@ -31,7 +31,19 @@ export class DecreeWindowComponent implements OnInit {
 "Niedersachsen", "Nordrhein-Westfalen", "Rheinland-Pfalz", "Sarland", 
 "Sachsen", "Sachsen-Anhalt", "Schleswig-Holstein", "Thüringen"];
 
-  decrees: DecreeEntity[] = [];
+  decrees: DecreeEntity[] = [
+    {id:1, state:"Bayern", description:"Maximale Anzahl Personen innen: 9", regulations:"-"},
+    {id:2, state:"Bayern", description:"Maximale Anzahl Personen außen: 9", regulations:"-"},
+    {id:3, state:"Bayern", description:"Maximale Anzahl Haushalte innen: 9", regulations:"-"},
+    {id:4, state:"Bayern", description:"Maximale Anzahl Haushalte außen: 9", regulations:"-"},
+    {id:5, state:"Bayern", description:"Maximale Teilnehmerzahl pro m² Fläche innen: 9", regulations:"-"},
+    {id:6, state:"Bayern", description:"Maximale Teilnehmerzahl pro m² Fläche außen: 9", regulations:"-"},
+    {id:7, state:"Niedersachsen", description:"Maximale Teilnehmerzahl pro m² Fläche außen: 9", regulations:"-"},
+    {id:8, state:"Bayern", description:"PENIS", regulations:"-"},
+  ];
+
+
+
   selectedDecreesByState = [];
   selectedDecreesByStateFiltered = [];
   selectedState: string = "";
@@ -41,14 +53,15 @@ export class DecreeWindowComponent implements OnInit {
   eventPopupVisible: boolean = false;
   persons: number;
   area: number;
-  outside: boolean;
+  isOutside: boolean = false;
   maxHomesString: string;
   maxHomesInsideDecree;
   maxHomesOutsideDecree;
   selectedEventState: string = "Niedersachsen";
   allowedVisible: boolean;
   notAllowedVisible: boolean;
-  selectedDecreesForEventCalculation = [];
+  decreesForStateEvent: DecreeEntity[] = [];
+  selectedDecreesForEventCalculation: DecreeEntity[] = [];
   calculatePerStateDecrees = [];
   maxPersonsInsideString = "Maximale Anzahl Personen innen:";
   maxPersonsOutsideString = "Maximale Anzahl Personen außen:";
@@ -67,12 +80,16 @@ export class DecreeWindowComponent implements OnInit {
   databaseResponse:boolean = false;
   forbiddenValues: boolean = false;
 
+  // eventOk?
+  correctPeople: boolean = false;
+  correctPeoplePerArea: boolean = false;
+
 
 
 
   ngOnInit() {
     this.updateDecreeList();
-    this.selectDecreesForEventCalculating();
+    this.selectedDecreesByState = this.decrees;
   }
   
   public searchByState() {
@@ -85,11 +102,11 @@ export class DecreeWindowComponent implements OnInit {
   }
 
   public searchByRegulations() {
-    let tempList;
+    let tempList: DecreeEntity[] = [];
     this.selectedDecreesByStateFiltered = this.selectedDecreesByState.filter(decreeEntry => !decreeEntry.regulations.search(this.searchWords));
-    tempList.push(this.selectedDecreesByStateFiltered);
+    tempList = this.selectedDecreesByStateFiltered;
     this.selectedDecreesByStateFiltered = this.selectedDecreesByState.filter(decreeEntry => !decreeEntry.description.search(this.searchWords));
-    tempList.push(this.selectedDecreesByStateFiltered);
+    this.selectedDecreesByStateFiltered.forEach(decree => tempList.push(decree));
     this.selectedDecreesByStateFiltered = tempList;
   }
 
@@ -118,59 +135,49 @@ export class DecreeWindowComponent implements OnInit {
   }
 
   public calculate() {
-    this.calculatePerStateDecrees = this.selectedDecreesForEventCalculation.filter(decree => decree.state === this.selectedEventState);
-    this.maxHomesInsideDecree = this.calculatePerStateDecrees.filter(decree => decree.description.search(this.maxHomesInsideString));
-    this.maxHomesOutsideDecree = this.calculatePerStateDecrees.filter(decree => decree.description.search(this.maxHomesOutsideString));
+    this.decreesForStateEvent = this.decrees.filter(decree => decree.state === this.selectedEventState);
+    switch(this.isOutside) {
+      
+      case true: {
 
-    this.maxPersonsInsideNumber = this.getValueForCalculating(this.maxPersonsInsideString);
-    console.log(this.maxPersonsInsideNumber);
-    this.maxPersonsOutsideNumber = this.getValueForCalculating(this.maxPersonsOutsideString);
-    console.log(this.maxPersonsPerAreaInsideNumber);
-    this.maxPersonsPerAreaInsideNumber = this.getValueForCalculating(this.maxPersonsPerAreaInsideString);
-    console.log(this.maxPersonsPerAreaInsideNumber);
-    this.maxPersonsPerAreaOutsideNumber = this.getValueForCalculating(this.maxPersonsPerAreaOutsideString);
-    console.log(this.maxPersonsPerAreaOutsideNumber);
+        this.decreesForStateEvent.forEach(decree => {    
 
-    if (this.outside) {
-      this.maxHomesString = this.maxHomesOutsideDecree.description;
-      if((this.maxPersonsOutsideNumber > this.persons) || (this.persons > (this.area/this.maxPersonsOutsideNumber))){
-        this.notAllowedVisible = true;
+           if(!(decree.description.search(this.maxPersonsOutsideString) == -1)) {
+              this.correctPeople = this.getNumber(decree.description, this.maxPersonsOutsideString ,this.persons);
+
+          } else if (!(decree.description.search(this.maxHomesOutsideString) == -1)) {
+            this.maxHomesOutsideString = decree.description;
+    
+          }   else if (!(decree.description.search(this.maxPersonsPerAreaOutsideString) == -1)) {
+            this.correctPeoplePerArea = this.getNumber(decree.description, this.maxPersonsPerAreaOutsideString, (this.area/this.persons));
+          }});          
+          break;
       }
-    } else {
-      this.maxHomesString = this.maxHomesInsideDecree.description;
-      if((this.maxPersonsInsideNumber > this.persons) || (this.persons > (this.area/this.maxPersonsInsideNumber))){
-        this.notAllowedVisible = true;
+
+      case false: {
+
+        this.decreesForStateEvent.forEach(decree => {    
+
+          if(!(decree.description.search(this.maxPersonsInsideString) == -1)) {
+            this.correctPeople = this.getNumber(decree.description, this.maxPersonsInsideString, this.persons);
+    
+    
+          }  else if (!(decree.description.search(this.maxHomesInsideString) == -1)) {
+            this.maxHomesInsideString = decree.description;
+    
+          }   else if (!(decree.description.search(this.maxPersonsPerAreaInsideString) == -1)) {
+            this.correctPeoplePerArea = this.getNumber(decree.description, this.maxPersonsPerAreaInsideString, (this.area/this.persons));    
+          }});
+          break;
       }
     }
 
-    if(!this.notAllowedVisible){
-      this.allowedVisible = true;
-    }
   }
 
-  public selectDecreesForEventCalculating() {
-    this.selectedDecreesForEventCalculation.push(this.decrees.filter(decreeEntity => decreeEntity.description.search(this.maxPersonsInsideString)));
-    this.selectedDecreesForEventCalculation.push(this.decrees.filter(decreeEntity => decreeEntity.description.search(this.maxPersonsOutsideString)));
-    this.selectedDecreesForEventCalculation.push(this.decrees.filter(decreeEntity => decreeEntity.description.search(this.maxHomesInsideString)));
-    this.selectedDecreesForEventCalculation.push(this.decrees.filter(decreeEntity => decreeEntity.description.search(this.maxHomesOutsideString)));
-    this.selectedDecreesForEventCalculation.push(this.decrees.filter(decreeEntity => decreeEntity.description.search(this.maxPersonsPerAreaInsideString)));
-    this.selectedDecreesForEventCalculation.push(this.decrees.filter(decreeEntity => decreeEntity.description.search(this.maxPersonsPerAreaOutsideString)));
-    this.selectedDecreesForEventCalculation.push(this.decrees.filter(decreeEntity => decreeEntity.description.search(this.closedFacilitiesString)));
-  }
-
-  public getValueForCalculating(description: string) {
-    let decrees = this.selectedDecreesForEventCalculation.filter(decree => decree.state === this.selectedEventState);
-    let valueDecree: DecreeEntity[] = decrees.filter(decree => decree.description.search(description));
-    let valueString = valueDecree[0].description;
-    valueString = valueString.replace(description, "");
-    valueString = valueString.replace(" ", "");
-    let value: number = +valueString;
-    if(value === NaN) {
-      return 0;
-    }
-    if(value < 0){
-      this.forbiddenValues = true;
-    }
-    return value;
+  public getNumber(description: string, text: string, compare: number ): boolean {
+      description = description.replace(text, "");
+      let value = parseFloat(description);
+    console.log(value >= compare);
+      return value >= compare;
   }
 }

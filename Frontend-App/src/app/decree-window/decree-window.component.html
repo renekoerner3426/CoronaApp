@@ -26,11 +26,14 @@
                 </div>
                 <div class="insideOutsideDiv">
                     <p class="eventP">Außenveranstaltung:</p>
-                    <input class="outsideCheckbox" [(ngModel)]="outside" type="checkbox" name="outside">
+                    <input class="outsideCheckbox" [(ngModel)]="isOutside" type="checkbox" name="outside">
                 </div>
                 <button class="calculateButton" (click)="calculate()">Berechnen</button>
-                <p class="allowedText" *ngIf="allowedVisible">Veranstaltung darf stattfinden</p>
-                <p class="notAllowedText" *ngIf="notAllowedVisible">Veranstaltungen darf nicht stattfinden</p>
+                <p class="allowedText" *ngIf="correctPeople; else elseBlock">Veranstaltung darf stattfinden</p>
+                <ng-template #elseBlock>
+                    <p class="notAllowedText">Veranstaltungen darf nicht stattfinden</p>
+                    {{correctPeople}} {{correctPeoplePerArea}}
+                </ng-template>
             </div>
             <div class="doneButtonDiv">
                 <button class="doneButton" (click)="closeEventPopup()">Fertig</button>
@@ -45,8 +48,8 @@
             <option  *ngFor="let state of states">{{state}}</option>
         </select>
         <div id="searchfield">
-            <input [(ngModel)]="searchWords" type="text" placeholder="Search.." name="search" (change)="searchByRegulations()">
-            <button>🔎</button>
+            <input [(ngModel)]="searchWords" type="text" placeholder="Search.." name="search">
+            <button (click)="searchByRegulations()">🔎</button>
         </div>
         <button class="eventButton" (click)="openEventPopup()">Eventplaner</button>
     </nav>

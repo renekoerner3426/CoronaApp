@@ -31,9 +31,16 @@ export class OverviewComponent implements OnInit {
   searchWords;
   selectedState: string;
 
+  //add
+  missingValues: boolean = false;
+  addingWasOk: boolean = false;
+  addingWasfalse: boolean = false;
+
   //Import
   selectedUploadState: string;
   importPopupVisible : boolean = false;
+  failedImport: boolean = false;
+  successfullImport: boolean = false;
 
   //Edit
   selectedDecree: DecreeEntity;
@@ -41,9 +48,14 @@ export class OverviewComponent implements OnInit {
   editingRegulations: string;
   editingState: string;
   popupVisible: boolean = false;
+  updateDecreeFailed: boolean = false;
+  deleteFailed: boolean = false;
 
   //all
-  decrees: DecreeEntity[] = [];
+  decrees: DecreeEntity[] = [
+    {id: 3, state:"Bayern", description:"hallo", regulations:"duuu"},
+    {id: 7, state:"Bayern", description:"dasdasasd", regulations:"duasdffasddfsauu"},
+  ];
 
   decreeCreated: number;
 
@@ -60,6 +72,7 @@ export class OverviewComponent implements OnInit {
   }
 
   public updateDecreeList() {
+    this.setMessageBooleansToFalse();
      this.http.get<DecreeEntity[]>(`http://localhost:8081/decrees`).subscribe(({
       error: error => console.error('updateDecreeList() - could not use ImportService!', error),
       next: data => data.forEach(element => {
@@ -71,14 +84,32 @@ export class OverviewComponent implements OnInit {
   }
 
   addDecree() {
-    let decree: DecreeEntity = {id: 0, state: this.selectedState, description: this.descriptionDecree, regulations: this.regulationsDecree }
-     this.http.post<DecreeEntity>(this.decreeUrl, decree).subscribe({
-      next: data => {
-        this.decreeCreated = data.id;
-      },
-      error: error => console.error('addDecree() - could not use ImportService!', error)
-    }); 
-    this.decrees.push(decree);
+    this.setMessageBooleansToFalse();
+    if(this.selectedState && this.descriptionDecree.length > 0) {
+      let decree: DecreeEntity = {id: 0, state: this.selectedState, description: this.descriptionDecree, regulations: this.regulationsDecree }
+      this.http.post<DecreeEntity>(this.decreeUrl, decree).subscribe({
+       next: data => {
+        this.addingWasOk = true;
+         this.decreeCreated = data.id;
+       },
+       error: error => {
+         this.addingWasfalse = true;
+         this.decrees.splice(this.decrees.indexOf(decree), 1);
+    this.decrees = this.decrees;
+    this.selectedDecreesByState.splice(this.selectedDecreesByState.indexOf(decree), 1);
+    this.selectedDecreesByState = this.selectedDecreesByState;
+    this.selectedDecreesByStateFiltered.splice(this.selectedDecreesByStateFiltered.indexOf(decree), 1);
+    this.selectedDecreesByStateFiltered = this.selectedDecreesByStateFiltered;
+         console.error('addDecree() - could not use ImportService!', error)}}); 
+     this.descriptionDecree = "";
+     this.regulationsDecree = "";
+     this.decrees.push(decree);
+     this.searchByState(this.selectedState);
+     this.searchByRegulations("");
+    } else {
+      this.missingValues = true;
+    }
+   
   }
 
   basicImport(){
@@ -89,11 +120,16 @@ export class OverviewComponent implements OnInit {
 
   filteredImport(){
     this.importPopupVisible = false;
-     this.http.get<DecreeEntity[]>(`http://localhost:8081/maches` + '/' + this.selectedUploadState).subscribe(({
-      error: error => console.error('basicImport() - could not use ImportService!', error)}));
+    if(!this.selectedUploadState) {
+      this.basicImport();
+    } else {
+      this.http.get<DecreeEntity[]>(`http://localhost:8081/maches` + '/' + this.selectedUploadState).subscribe(({
+        error: error => console.error('basicImport() - could not use ImportService!', error)}));
+    }    
   }
 
   public searchByState(state: string) {
+    this.setMessageBooleansToFalse();
     this.allStatesVisible = false;
     this.selectedDecreesByState = this.decrees.filter(decreeEntry => decreeEntry.state == state);
     this.selectedDecreesByStateFiltered = this.selectedDecreesByState;
@@ -104,24 +140,35 @@ export class OverviewComponent implements OnInit {
   }
 
   public updateDecree(){ 
+    this.setMessageBooleansToFalse();
     this.selectedDecree.description = this.editingDescription;
     this.selectedDecree.regulations = this.editingRegulations;
     this.popupVisible = false;
     return this.http.put<DecreeEntity>(this.editUrl, this.selectedDecree).subscribe({
-      error: error => console.error('updateDecree() - could not use ImportService!', error)
-    });
+      error: error => {
+        this.updateDecreeFailed = true;
+        console.error('updateDecree() - could not use ImportService!', error)
+    }});
   }
 
   public deleteDecree(decree: DecreeEntity){
+    this.setMessageBooleansToFalse();
     this.http.post<DecreeEntity>(this.deleteUrl, decree).subscribe({
-      error: error => console.error('deleteDecree() - could not use ImportService!', error)
-    });
-    this.decrees = this.decrees.splice(this.decrees.indexOf(decree), 1);
-    this.selectedDecreesByState = this.selectedDecreesByState.splice(this.selectedDecreesByState.indexOf(decree), 1);
-    this.selectedDecreesByStateFiltered = this.selectedDecreesByStateFiltered.splice(this.selectedDecreesByStateFiltered.indexOf(decree), 1);
+      error: error => {
+        this.deleteFailed = true;
+        console.error('deleteDecree() - could not use ImportService!', error)
+    }});
+    this.decrees.splice(this.decrees.indexOf(decree), 1);
+    this.decrees = this.decrees;
+    this.selectedDecreesByState.splice(this.selectedDecreesByState.indexOf(decree), 1);
+    this.selectedDecreesByState = this.selectedDecreesByState;
+    this.selectedDecreesByStateFiltered.splice(this.selectedDecreesByStateFiltered.indexOf(decree), 1);
+    this.selectedDecreesByStateFiltered = this.selectedDecreesByStateFiltered;
+    
   }
 
   public openDecreeEditor(decree: DecreeEntity){
+    this.setMessageBooleansToFalse();
     this.editingDescription = decree.description;
     this.editingRegulations = decree.regulations;
     this.editingState = decree.state;
@@ -130,10 +177,21 @@ export class OverviewComponent implements OnInit {
   }
 
   public openImportPopup() {
+    this.setMessageBooleansToFalse();
     this.importPopupVisible = true;
   }
 
   public closeImportPopup() {
     this.importPopupVisible = false;
+  }
+
+  public setMessageBooleansToFalse(){
+    this.missingValues = false;
+    this.addingWasOk = false;
+    this.addingWasfalse = false;
+    this.failedImport = false;
+    this.successfullImport = false;
+    this.updateDecreeFailed = false;
+    this.deleteFailed = false;
   }
 }

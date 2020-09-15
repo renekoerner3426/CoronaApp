@@ -177,6 +177,7 @@ footer {
 .stateDiv {
     display: flex;
     margin-bottom: 5px;
+    margin-top: 5px;
     height: 35px;
 }
 

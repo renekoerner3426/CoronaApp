@@ -26,7 +26,7 @@
                     <input [(ngModel)]="area" type="number" placeholder="50" name="area"> m²
                 </div>
                 <div class="insideOutsideDiv">
-                    <p class="eventP">Außernveranstaltung:</p>
+                    <p class="eventP">Außenveranstaltung:</p>
                     <input class="outsideCheckbox" [(ngModel)]="outside" type="checkbox" name="outside">
                     <button class="calculateButton" (click)="calculate()">Berechnen</button>
                 </div>
@@ -44,8 +44,8 @@
             <option  *ngFor="let state of states">{{state}}</option>
         </select>
         <div id="searchfield">
-            <input [(ngModel)]="searchWords" type="text" placeholder="Search.." name="search">
-            <button (click)="searchByRegulations(searchWords)">🔎</button>
+            <input [(ngModel)]="searchWords" type="text" placeholder="Search.." name="search" (change)="searchByRegulations(searchWords)">
+            <button>🔎</button>
         </div>
         <button class="eventButton" (click)="openEventPopup()">Eventplaner</button>
     </nav>

@@ -38,13 +38,34 @@ export class DecreeWindowComponent implements OnInit {
   searchWords;
 
   //event
+  forbiddenValues: boolean = false;
   eventPopupVisible: boolean = false;
   persons: number;
   area: number;
   outside: boolean;
-  selectedEventState: string;
+  maxHomesString: string;
+  maxHomesInsideDecree;
+  maxHomesOutsideDecree;
+  selectedEventState: string = "Niedersachsen";
   allowedVisible: boolean;
   notAllowedVisible: boolean;
+  selectedDecreesForEventCalculation = [];
+  calculatePerStateDecrees = [];
+  maxPersonsInsideString = "Maximale Anzahl Personen innen:";
+  maxPersonsOutsideString = "Maximale Anzahl Personen außen:";
+  maxHomesInsideString = "Maximale Anzahl Haushalte innen:";
+  maxHomesOutsideString = "Maximale Anzahl Haushalte außen:";
+  maxPersonsPerAreaInsideString = "Maximale Teilnehmerzahl pro m² Fläche innen:";
+  maxPersonsPerAreaOutsideString = "Maximale Teilnehmerzahl pro m² Fläche außen:";
+  maxPersonsInsideNumber: number;
+  maxPersonsOutsideNumber: number;
+  maxPersonsPerAreaInsideNumber: number;
+  maxPersonsPerAreaOutsideNumber: number;
+  closedFacilitiesString = "Schließungen:";
+  closedFacilities = [];
+
+
+
 
   ngOnInit() {
     this.decrees = [];
@@ -55,6 +76,7 @@ export class DecreeWindowComponent implements OnInit {
       });
     });
 
+    this.selectDecreesForEventCalculating();
   }
   public searchByState(state: string) {
     this.selectedDecreesByState = this.decrees.filter(decreeEntry => decreeEntry.state == state);
@@ -62,7 +84,7 @@ export class DecreeWindowComponent implements OnInit {
   }
 
   public searchByRegulations(regulations: string) {
-    this. selectedDecreesByStateFiltered = this.selectedDecreesByState.filter(decreeEntry => !decreeEntry.regulations.search(regulations));
+    this.selectedDecreesByStateFiltered = this.selectedDecreesByState.filter(decreeEntry => !decreeEntry.regulations.search(regulations));
   }
 
    public getDecreesFromDB() {
@@ -71,6 +93,7 @@ export class DecreeWindowComponent implements OnInit {
   } 
 
   public openEventPopup() {
+    this.selectedEventState = "Niedersachsen";
     this.eventPopupVisible = true;
   }
 
@@ -81,7 +104,55 @@ export class DecreeWindowComponent implements OnInit {
   }
 
   public calculate() {
-  this.allowedVisible = true;
-  this.notAllowedVisible = true;
+    this.calculatePerStateDecrees = this.selectedDecreesForEventCalculation.filter(decree => decree.state === this.selectedEventState);
+    this.maxHomesInsideDecree = this.calculatePerStateDecrees.filter(decree => decree.description.search(this.maxHomesInsideString));
+    this.maxHomesOutsideDecree = this.calculatePerStateDecrees.filter(decree => decree.description.search(this.maxHomesOutsideString));
+
+    this.maxPersonsInsideNumber = this.getValueForCalculating(this.maxPersonsInsideString);
+    this.maxPersonsOutsideNumber = this.getValueForCalculating(this.maxPersonsOutsideString);
+    this.maxPersonsPerAreaInsideNumber = this.getValueForCalculating(this.maxPersonsPerAreaInsideString);
+    this.maxPersonsPerAreaOutsideNumber = this.getValueForCalculating(this.maxPersonsPerAreaOutsideString);
+
+    if (this.outside) {
+      this.maxHomesString = this.maxHomesOutsideDecree.description;
+      if((this.maxPersonsOutsideNumber > this.persons) || (this.persons > (this.area/this.maxPersonsOutsideNumber))){
+        this.notAllowedVisible = true;
+      }
+    } else {
+      this.maxHomesString = this.maxHomesInsideDecree.description;
+      if((this.maxPersonsInsideNumber > this.persons) || (this.persons > (this.area/this.maxPersonsInsideNumber))){
+        this.notAllowedVisible = true;
+      }
+    }
+
+    if(!this.notAllowedVisible){
+      this.allowedVisible = true;
+    }
+  }
+
+  public selectDecreesForEventCalculating() {
+    this.selectedDecreesForEventCalculation.push(this.decrees.filter(decreeEntity => decreeEntity.description.search(this.maxPersonsInsideString)));
+    this.selectedDecreesForEventCalculation.push(this.decrees.filter(decreeEntity => decreeEntity.description.search(this.maxPersonsOutsideString)));
+    this.selectedDecreesForEventCalculation.push(this.decrees.filter(decreeEntity => decreeEntity.description.search(this.maxHomesInsideString)));
+    this.selectedDecreesForEventCalculation.push(this.decrees.filter(decreeEntity => decreeEntity.description.search(this.maxHomesOutsideString)));
+    this.selectedDecreesForEventCalculation.push(this.decrees.filter(decreeEntity => decreeEntity.description.search(this.maxPersonsPerAreaInsideString)));
+    this.selectedDecreesForEventCalculation.push(this.decrees.filter(decreeEntity => decreeEntity.description.search(this.maxPersonsPerAreaOutsideString)));
+    this.selectedDecreesForEventCalculation.push(this.decrees.filter(decreeEntity => decreeEntity.description.search(this.closedFacilitiesString)));
+  }
+
+  public getValueForCalculating(description: string) {
+    let decrees = this.selectedDecreesForEventCalculation.filter(decree => decree.state === this.selectedEventState);
+    let valueDecree: DecreeEntity[] = decrees.filter(decree => decree.description.search(description));
+    let valueString = valueDecree[0].description;
+    valueString = valueString.replace(description, "");
+    valueString = valueString.replace(" ", "");
+    let value: number = +valueString;
+    if(value === NaN) {
+      return 0;
+    }
+    if(value < 0){
+      this.forbiddenValues = true;
+    }
+    return value;
   }
 }

@@ -36,7 +36,11 @@
 <div class="window">
     <div class="welcomeDiv">
         <p>Willkommen im Bereitstellungsmenü für Corona-Verordnungen! Sie können neue Verordnungen ganz einfach über diese Seite erstellen.</p>
-        <button (click)="openImportPopup()">Import</button>
+        <div>
+            <button (click)="openImportPopup()">Import</button>
+            <p *ngIf="failedImport" class="failed">Import fehlgeschlagen</p>
+            <p *ngIf="successfullImport" class="successfull">Import erfolgreich</p>
+        </div>
     </div>
 
     <!-- Verordnungen add -->
@@ -58,6 +62,9 @@
             </div>
 
             <button class="newDecreeButton" (click)="addDecree()">neue Verordnung</button>
+            <p *ngIf="missingValues" class="failed">Bitte Bundesland auswählen und eine Beschreibung hinzufügen.</p>
+            <p *ngIf="addingWasOk" class="successfull">Neuer Eintrag hinzugefügt.</p>
+            <p *ngIf="addingWasfalse" class="failed">Eintrag konnte nicht in Datenbank gespeichert werden.</p>
         </div>
 
         <!-- Verordnungen table -->
@@ -76,8 +83,11 @@
                         <td *ngIf="allStatesVisible">{{decree.state}}</td>
                         <td>{{ decree.description }}</td>
                         <td>{{ decree.regulations }}</td>
-                        <td class="buttonColumn"> <button class="editButton" (click)="openDecreeEditor(decree)">edit</button>
+                        <td class="buttonColumn">
+                            <button class="editButton" (click)="openDecreeEditor(decree)">edit</button>
                             <button class="deleteButton" (click)="deleteDecree(decree)">delete</button>
+                            <p *ngIf="updateDecreeFailed" class="failed">Änderung in Datenbank fehlgeschlagen</p>
+                            <p *ngIf="deleteFailed" class="successfull">Löschen aus der Datenbank fehlgeschlagen</p>
                         </td>
                     </tr>
                 </tbody>

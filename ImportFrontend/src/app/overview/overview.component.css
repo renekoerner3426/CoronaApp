@@ -76,6 +76,14 @@ tr:hover .deleteButton {
     display: flex;
 }
 
+.failed {
+    color: red;
+}
+
+.successfull {
+    color: green;
+}
+
 .popupWindow {
     position: fixed;
     z-index: 1;

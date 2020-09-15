@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
 
 import com.vw.fakultaet73.VerordnungenImportService.VerordnungenImportService.entitites.DecreeEntity;
+import com.vw.fakultaet73.VerordnungenImportService.VerordnungenImportService.errors.RestTemplateResponseErrorHandler;
 import com.vw.fakultaet73.VerordnungenImportService.VerordnungenImportService.services.ExportService;
 import com.vw.fakultaet73.VerordnungenImportService.VerordnungenImportService.services.ImportService;
 
@@ -53,10 +54,13 @@ public class ReceiveData {
 	
 	private List<DecreeEntity> parse(String state) {
 		RestTemplate restTemplate = new RestTemplate();
+		restTemplate.setErrorHandler(new RestTemplateResponseErrorHandler());
 		restTemplate.getMessageConverters().add(0, new StringHttpMessageConverter(Charset.forName("UTF-8")));
+		
 		DecreeEntity[] response;
 		if(state.length() == 0 || state == null) {
 			response = restTemplate.getForObject(this.GET_URL,DecreeEntity[].class);
+			
 		} else {
 			String URL = this.GET_URL + "/" + state;
 			response = restTemplate.getForObject(URL,DecreeEntity[].class);

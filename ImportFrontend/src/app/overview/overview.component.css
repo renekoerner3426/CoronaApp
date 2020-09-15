@@ -78,10 +78,12 @@ tr:hover .deleteButton {
 
 .failed {
     color: red;
+    font-weight: bold;
 }
 
 .successfull {
     color: green;
+    font-weight: bold;
 }
 
 .popupWindow {

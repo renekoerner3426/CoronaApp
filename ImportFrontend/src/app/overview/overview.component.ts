@@ -35,6 +35,7 @@ export class OverviewComponent implements OnInit {
   missingValues: boolean = false;
   addingWasOk: boolean = false;
   addingWasfalse: boolean = false;
+  existing: boolean = false;
 
   //Import
   selectedUploadState: string;
@@ -52,10 +53,7 @@ export class OverviewComponent implements OnInit {
   deleteFailed: boolean = false;
 
   //all
-  decrees: DecreeEntity[] = [
-    {id: 3, state:"Bayern", description:"hallo", regulations:"duuu"},
-    {id: 7, state:"Bayern", description:"dasdasasd", regulations:"duasdffasddfsauu"},
-  ];
+  decrees: DecreeEntity[] = [];
 
   decreeCreated: number;
 
@@ -86,6 +84,10 @@ export class OverviewComponent implements OnInit {
   addDecree() {
     this.setMessageBooleansToFalse();
     if(this.selectedState && this.descriptionDecree.length > 0) {
+      let givenEntity = this.decrees.filter(decree => ((decree.description === this.descriptionDecree) && (decree.regulations === this.regulationsDecree)));
+      if(givenEntity.length > 0) {
+          this.existing = true;
+      } else {
       let decree: DecreeEntity = {id: 0, state: this.selectedState, description: this.descriptionDecree, regulations: this.regulationsDecree }
       this.http.post<DecreeEntity>(this.decreeUrl, decree).subscribe({
        next: data => {
@@ -95,21 +97,19 @@ export class OverviewComponent implements OnInit {
        error: error => {
          this.addingWasfalse = true;
          this.decrees.splice(this.decrees.indexOf(decree), 1);
-    this.decrees = this.decrees;
-    this.selectedDecreesByState.splice(this.selectedDecreesByState.indexOf(decree), 1);
-    this.selectedDecreesByState = this.selectedDecreesByState;
-    this.selectedDecreesByStateFiltered.splice(this.selectedDecreesByStateFiltered.indexOf(decree), 1);
-    this.selectedDecreesByStateFiltered = this.selectedDecreesByStateFiltered;
+          this.decrees = this.decrees;
+          this.searchByState(this.selectedState);
          console.error('addDecree() - could not use ImportService!', error)}}); 
-     this.descriptionDecree = "";
-     this.regulationsDecree = "";
-     this.decrees.push(decree);
+         this.decrees.push(decree);
+      }   
+    this.decrees = this.decrees;
+    this.descriptionDecree = "";
+     this.regulationsDecree = "";     
      this.searchByState(this.selectedState);
-     this.searchByRegulations("");
     } else {
       this.missingValues = true;
     }
-   
+    
   }
 
   basicImport(){
@@ -129,42 +129,47 @@ export class OverviewComponent implements OnInit {
   }
 
   public searchByState(state: string) {
-    this.setMessageBooleansToFalse();
-    this.allStatesVisible = false;
-    this.selectedDecreesByState = this.decrees.filter(decreeEntry => decreeEntry.state == state);
+    if(state.length > 0) {
+      this.selectedDecreesByState = this.decrees.filter(decreeEntry => decreeEntry.state === state);
+    } else {
+      this.selectedDecreesByState = this.decrees;
+    }
     this.selectedDecreesByStateFiltered = this.selectedDecreesByState;
   }
 
-  public searchByRegulations(regulations: string) {
-    this. selectedDecreesByStateFiltered = this.selectedDecreesByState.filter(decreeEntry => !decreeEntry.regulations.search(regulations));
+  public searchList() {
+    this.selectedDecreesByStateFiltered = this.selectedDecreesByState.filter(decreeEntry => decreeEntry.regulations.search(this.regulationsDecree));
+    this.selectedDecreesByStateFiltered = this.selectedDecreesByStateFiltered.filter(decreeEntry => decreeEntry.description.search(this.descriptionDecree));
+
   }
 
   public updateDecree(){ 
     this.setMessageBooleansToFalse();
+    let tempDescription = this.selectedDecree.description;
+    let tempRegulation = this.selectedDecree.regulations;
     this.selectedDecree.description = this.editingDescription;
     this.selectedDecree.regulations = this.editingRegulations;
     this.popupVisible = false;
     return this.http.put<DecreeEntity>(this.editUrl, this.selectedDecree).subscribe({
       error: error => {
         this.updateDecreeFailed = true;
+        this.selectedDecree.description = tempDescription;
+        this.selectedDecree.regulations = tempRegulation;
         console.error('updateDecree() - could not use ImportService!', error)
     }});
   }
 
   public deleteDecree(decree: DecreeEntity){
     this.setMessageBooleansToFalse();
+    let tempDecree = decree;
+    this.decrees.splice(this.decrees.indexOf(decree), 1);
     this.http.post<DecreeEntity>(this.deleteUrl, decree).subscribe({
       error: error => {
         this.deleteFailed = true;
+        this.decrees.push(tempDecree);
         console.error('deleteDecree() - could not use ImportService!', error)
     }});
-    this.decrees.splice(this.decrees.indexOf(decree), 1);
-    this.decrees = this.decrees;
-    this.selectedDecreesByState.splice(this.selectedDecreesByState.indexOf(decree), 1);
-    this.selectedDecreesByState = this.selectedDecreesByState;
-    this.selectedDecreesByStateFiltered.splice(this.selectedDecreesByStateFiltered.indexOf(decree), 1);
-    this.selectedDecreesByStateFiltered = this.selectedDecreesByStateFiltered;
-    
+    this.searchByState(this.selectedState);    
   }
 
   public openDecreeEditor(decree: DecreeEntity){
@@ -193,5 +198,6 @@ export class OverviewComponent implements OnInit {
     this.successfullImport = false;
     this.updateDecreeFailed = false;
     this.deleteFailed = false;
+    this.existing = false;
   }
 }

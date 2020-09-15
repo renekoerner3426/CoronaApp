@@ -59,7 +59,7 @@ nav select {
 /* Style the searchfield */
 
 #searchfield {
-    margin: auto;
+    margin-top: 35px;
     box-sizing: border-box;
 }
 
@@ -83,6 +83,7 @@ nav select {
     border: 1px solid grey;
     border-left: none;
     cursor: pointer;
+    max-height: 40px !important;
 }
 
 #searchfield button:hover {
@@ -182,17 +183,37 @@ footer {
 }
 
 .eventButton {
-    height: 50px !important;
-    margin: auto;
+    max-height: 40px !important;
+    margin-top: 35px;
     margin-right: 10px !important;
+    font-weight: bold;
 }
 
 .allowedText {
     color: green;
 }
 
-.notAllowedText {
+.notAllowedText,
+.failed {
     color: red;
+    font-weight: bold;
+}
+
+.calculateButton {
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+.doneButton {
+    padding: 5px 5px 5px 5px;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    width: 80px;
+    font-weight: bold;
+}
+
+.doneButtonDiv {
+    text-align: center;
 }
 
 

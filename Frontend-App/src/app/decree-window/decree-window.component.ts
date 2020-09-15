@@ -34,11 +34,10 @@ export class DecreeWindowComponent implements OnInit {
   decrees: DecreeEntity[] = [];
   selectedDecreesByState = [];
   selectedDecreesByStateFiltered = [];
-  selectedState="keine Auswahl";
+  selectedState: string = "";
   searchWords;
 
   //event
-  forbiddenValues: boolean = false;
   eventPopupVisible: boolean = false;
   persons: number;
   area: number;
@@ -64,22 +63,23 @@ export class DecreeWindowComponent implements OnInit {
   closedFacilitiesString = "Schließungen:";
   closedFacilities = [];
 
+  //errorhandling
+  databaseResponse:boolean = false;
+  forbiddenValues: boolean = false;
+
 
 
 
   ngOnInit() {
-    this.decrees = [];
-     this.getDecreesFromDB().subscribe((data)=>{
-    data.forEach(element => {
-        this.decrees.push(element);
-        console.log(element);
-      });
-    });
-
+    this.updateDecreeList();
     this.selectDecreesForEventCalculating();
   }
-  public searchByState(state: string) {
-    this.selectedDecreesByState = this.decrees.filter(decreeEntry => decreeEntry.state == state);
+  public searchByState() {
+    if(this.selectedState.length > 0) {
+      this.selectedDecreesByState = this.decrees.filter(decreeEntry => decreeEntry.state === this.selectedState);
+    } else {
+      this.selectedDecreesByState = this.decrees;
+    }   
     this.selectedDecreesByStateFiltered = this.selectedDecreesByState;
   }
 
@@ -87,10 +87,18 @@ export class DecreeWindowComponent implements OnInit {
     this.selectedDecreesByStateFiltered = this.selectedDecreesByState.filter(decreeEntry => !decreeEntry.regulations.search(regulations));
   }
 
-   public getDecreesFromDB() {
-    let decreeEntity = this.httpClient.get<DecreeEntity[]>(`http://localhost:8082/decrees`)
-    return decreeEntity
-  } 
+  public updateDecreeList() {
+     this.httpClient.get<DecreeEntity[]>(`http://localhost:8082/decrees`).subscribe(({
+      error: error => {
+        this.databaseResponse = true;
+        console.error('updateDecreeList() - could not import from database', error)},
+      next: data => data.forEach(element => {
+        this.decrees.push(element);
+        console.log(element);
+      })
+    }));
+    this.decrees = this.decrees.filter((element, i) => i === this.decrees.indexOf(element))
+  }
 
   public openEventPopup() {
     this.selectedEventState = "Niedersachsen";
@@ -109,9 +117,13 @@ export class DecreeWindowComponent implements OnInit {
     this.maxHomesOutsideDecree = this.calculatePerStateDecrees.filter(decree => decree.description.search(this.maxHomesOutsideString));
 
     this.maxPersonsInsideNumber = this.getValueForCalculating(this.maxPersonsInsideString);
+    console.log(this.maxPersonsInsideNumber);
     this.maxPersonsOutsideNumber = this.getValueForCalculating(this.maxPersonsOutsideString);
+    console.log(this.maxPersonsPerAreaInsideNumber);
     this.maxPersonsPerAreaInsideNumber = this.getValueForCalculating(this.maxPersonsPerAreaInsideString);
+    console.log(this.maxPersonsPerAreaInsideNumber);
     this.maxPersonsPerAreaOutsideNumber = this.getValueForCalculating(this.maxPersonsPerAreaOutsideString);
+    console.log(this.maxPersonsPerAreaOutsideNumber);
 
     if (this.outside) {
       this.maxHomesString = this.maxHomesOutsideDecree.description;

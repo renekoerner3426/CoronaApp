@@ -74,6 +74,7 @@ export class DecreeWindowComponent implements OnInit {
     this.updateDecreeList();
     this.selectDecreesForEventCalculating();
   }
+  
   public searchByState() {
     if(this.selectedState.length > 0) {
       this.selectedDecreesByState = this.decrees.filter(decreeEntry => decreeEntry.state === this.selectedState);
@@ -83,8 +84,13 @@ export class DecreeWindowComponent implements OnInit {
     this.selectedDecreesByStateFiltered = this.selectedDecreesByState;
   }
 
-  public searchByRegulations(regulations: string) {
-    this.selectedDecreesByStateFiltered = this.selectedDecreesByState.filter(decreeEntry => !decreeEntry.regulations.search(regulations));
+  public searchByRegulations() {
+    let tempList;
+    this.selectedDecreesByStateFiltered = this.selectedDecreesByState.filter(decreeEntry => !decreeEntry.regulations.search(this.searchWords));
+    tempList.push(this.selectedDecreesByStateFiltered);
+    this.selectedDecreesByStateFiltered = this.selectedDecreesByState.filter(decreeEntry => !decreeEntry.description.search(this.searchWords));
+    tempList.push(this.selectedDecreesByStateFiltered);
+    this.selectedDecreesByStateFiltered = tempList;
   }
 
   public updateDecreeList() {

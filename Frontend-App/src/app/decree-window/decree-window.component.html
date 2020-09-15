@@ -41,11 +41,11 @@
     <!-- Navigation Bar -->
     <nav>
         <h1>Bundesland auswählen: </h1>
-        <select class="dropDown" [(ngModel)]="selectedState" (change)="searchByState(selectedState)">
+        <select class="dropDown" [(ngModel)]="selectedState" (change)="searchByState()">
             <option  *ngFor="let state of states">{{state}}</option>
         </select>
         <div id="searchfield">
-            <input [(ngModel)]="searchWords" type="text" placeholder="Search.." name="search" (change)="searchByRegulations(searchWords)">
+            <input [(ngModel)]="searchWords" type="text" placeholder="Search.." name="search" (change)="searchByRegulations()">
             <button>🔎</button>
         </div>
         <button class="eventButton" (click)="openEventPopup()">Eventplaner</button>

@@ -31,16 +31,7 @@ export class DecreeWindowComponent implements OnInit {
 "Niedersachsen", "Nordrhein-Westfalen", "Rheinland-Pfalz", "Sarland", 
 "Sachsen", "Sachsen-Anhalt", "Schleswig-Holstein", "Thüringen"];
 
-  decrees: DecreeEntity[] = [
-    {id:1, state:"Bayern", description:"Maximale Anzahl Personen innen: 9", regulations:"-"},
-    {id:2, state:"Bayern", description:"Maximale Anzahl Personen außen: 9", regulations:"-"},
-    {id:3, state:"Bayern", description:"Maximale Anzahl Haushalte innen: 9", regulations:"-"},
-    {id:4, state:"Bayern", description:"Maximale Anzahl Haushalte außen: 9", regulations:"-"},
-    {id:5, state:"Bayern", description:"Maximale Teilnehmerzahl pro m² Fläche innen: 9", regulations:"-"},
-    {id:6, state:"Bayern", description:"Maximale Teilnehmerzahl pro m² Fläche außen: 9", regulations:"-"},
-    {id:7, state:"Niedersachsen", description:"Maximale Teilnehmerzahl pro m² Fläche außen: 9", regulations:"-"},
-    {id:8, state:"Bayern", description:"PENIS", regulations:"-"},
-  ];
+  decrees: DecreeEntity[] = [];
 
 
 
@@ -55,8 +46,6 @@ export class DecreeWindowComponent implements OnInit {
   area: number;
   isOutside: boolean = false;
   maxHomesString: string;
-  maxHomesInsideDecree;
-  maxHomesOutsideDecree;
   selectedEventState: string = "Niedersachsen";
   allowedVisible: boolean;
   notAllowedVisible: boolean;
@@ -74,7 +63,7 @@ export class DecreeWindowComponent implements OnInit {
   maxPersonsPerAreaInsideNumber: number;
   maxPersonsPerAreaOutsideNumber: number;
   closedFacilitiesString = "Schließungen:";
-  closedFacilities = [];
+  closedFacilities: string;
 
   //errorhandling
   databaseResponse:boolean = false;
@@ -132,6 +121,8 @@ export class DecreeWindowComponent implements OnInit {
     this.eventPopupVisible = false;
     this.allowedVisible = false;
     this.notAllowedVisible = false;
+    this.maxHomesString = "";
+    this.closedFacilities = "";
   }
 
   public calculate() {
@@ -146,11 +137,16 @@ export class DecreeWindowComponent implements OnInit {
               this.correctPeople = this.getNumber(decree.description, this.maxPersonsOutsideString ,this.persons);
 
           } else if (!(decree.description.search(this.maxHomesOutsideString) == -1)) {
-            this.maxHomesOutsideString = decree.description;
+            this.maxHomesString = decree.description;
     
           }   else if (!(decree.description.search(this.maxPersonsPerAreaOutsideString) == -1)) {
             this.correctPeoplePerArea = this.getNumber(decree.description, this.maxPersonsPerAreaOutsideString, (this.area/this.persons));
-          }});          
+
+          } else if (!(decree.description.search(this.closedFacilitiesString) == -1)) {
+            this.closedFacilities = decree.description;
+    
+          }
+        });          
           break;
       }
 
@@ -163,11 +159,15 @@ export class DecreeWindowComponent implements OnInit {
     
     
           }  else if (!(decree.description.search(this.maxHomesInsideString) == -1)) {
-            this.maxHomesInsideString = decree.description;
+            this.maxHomesString = decree.description;
     
           }   else if (!(decree.description.search(this.maxPersonsPerAreaInsideString) == -1)) {
-            this.correctPeoplePerArea = this.getNumber(decree.description, this.maxPersonsPerAreaInsideString, (this.area/this.persons));    
-          }});
+            this.correctPeoplePerArea = this.getNumber(decree.description, this.maxPersonsPerAreaInsideString, (this.area/this.persons));   
+
+            }else if (!(decree.description.search(this.closedFacilitiesString) == -1)) {
+              this.closedFacilities = decree.description;
+          }
+        });
           break;
       }
     }

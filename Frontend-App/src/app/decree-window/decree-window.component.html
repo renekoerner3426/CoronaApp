@@ -29,10 +29,11 @@
                     <input class="outsideCheckbox" [(ngModel)]="isOutside" type="checkbox" name="outside">
                 </div>
                 <button class="calculateButton" (click)="calculate()">Berechnen</button>
-                <p class="allowedText" *ngIf="correctPeople; else elseBlock">Veranstaltung darf stattfinden</p>
+                <p class="homes">{{maxHomesString}}</p>
+                <p class="closed">{{closedFacilities}}</p>
+                <p class="allowedText" *ngIf="correctPeople && correctPeoplePerArea; else elseBlock">Veranstaltung darf stattfinden</p>
                 <ng-template #elseBlock>
                     <p class="notAllowedText">Veranstaltungen darf nicht stattfinden</p>
-                    {{correctPeople}} {{correctPeoplePerArea}}
                 </ng-template>
             </div>
             <div class="doneButtonDiv">

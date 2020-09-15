@@ -9,6 +9,11 @@ interface DecreeEntity {
   id: number;
 }
 
+interface LastChanged {
+  state: string;
+  lastChange: string;
+}
+
 @Component({
   selector: 'app-overview',
   templateUrl: './overview.component.html',
@@ -54,8 +59,9 @@ export class OverviewComponent implements OnInit {
 
   //all
   decrees: DecreeEntity[] = [];
-
+  showLastChange: boolean = false;
   decreeCreated: number;
+  lastUploadDate: string = "nie";
 
   states = ["Baden-Württemberg", "Bayern", "Berlin","Brandenburg", 
 "Bremen", "Hamburg", "Hessen", "Mecklenburg-Vorpommern",
@@ -70,6 +76,7 @@ export class OverviewComponent implements OnInit {
   }
 
   public updateDecreeList() {
+    this.getLastChange();
     this.setMessageBooleansToFalse();
      this.http.get<DecreeEntity[]>(`http://localhost:8081/decrees`).subscribe(({
       error: error => console.error('updateDecreeList() - could not use ImportService!', error),
@@ -82,6 +89,7 @@ export class OverviewComponent implements OnInit {
   }
 
   addDecree() {
+    this.getLastChange();
     this.setMessageBooleansToFalse();
     if(this.selectedState && this.descriptionDecree.length > 0) {
       let givenEntity = this.decrees.filter(decree => ((decree.description === this.descriptionDecree) && (decree.regulations === this.regulationsDecree)));
@@ -113,12 +121,27 @@ export class OverviewComponent implements OnInit {
   }
 
   basicImport(){
+    this.getLastChange();
     this.importPopupVisible = false;
      this.http.get<DecreeEntity[]>(`http://localhost:8081/maches`).subscribe(({
       error: error => console.error('basicImport() - could not use ImportService!', error)}));
   }
 
+  getLastChange(){
+    if(!this.selectedState){
+      this.showLastChange = false;
+    } else {
+      this.showLastChange = true;
+        this.http.get<LastChanged>(`http://localhost:8081/change/` + '/' + this.selectedState).subscribe(({
+          error: error => console.error('getLastChanged() - could not use ImportService!', error),
+          next: data => this.lastUploadDate = data.lastChange
+    }));
+  }
+  }
+
+
   filteredImport(){
+    this.getLastChange();
     this.importPopupVisible = false;
     if(!this.selectedUploadState) {
       this.basicImport();
@@ -129,6 +152,7 @@ export class OverviewComponent implements OnInit {
   }
 
   public searchByState(state: string) {
+    this.getLastChange();
     if(state.length > 0) {
       this.selectedDecreesByState = this.decrees.filter(decreeEntry => decreeEntry.state === state);
     } else {
@@ -145,6 +169,7 @@ export class OverviewComponent implements OnInit {
 
   public updateDecree(){ 
     this.setMessageBooleansToFalse();
+    this.getLastChange();
     let tempDescription = this.selectedDecree.description;
     let tempRegulation = this.selectedDecree.regulations;
     this.selectedDecree.description = this.editingDescription;
@@ -161,6 +186,7 @@ export class OverviewComponent implements OnInit {
 
   public deleteDecree(decree: DecreeEntity){
     this.setMessageBooleansToFalse();
+    this.getLastChange();
     let tempDecree = decree;
     this.decrees.splice(this.decrees.indexOf(decree), 1);
     this.http.post<DecreeEntity>(this.deleteUrl, decree).subscribe({

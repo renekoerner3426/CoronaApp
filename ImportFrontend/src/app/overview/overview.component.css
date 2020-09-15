@@ -76,6 +76,13 @@ tr:hover .deleteButton {
     display: flex;
 }
 
+.dateDiv {
+    margin-top: 10px;
+    margin-bottom: 10px;
+    text-align: center;
+    font-size: 15px;
+}
+
 .failed {
     color: red;
     font-weight: bold;

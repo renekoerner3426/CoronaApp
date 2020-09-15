@@ -68,6 +68,8 @@
             <p *ngIf="existing" class="failed">Verordnung bereits vorhanden.</p>
         </div>
 
+        <div *ngIf="showLastChange" class="dateDiv">Letzer Import: {{lastUploadDate}}</div>
+
         <!-- Verordnungen table -->
         <div *ngIf="selectedDecreesByStateFiltered.length > 0; else elseBlock">
             <h2>Verordnungen für: {{selectedState}}</h2>

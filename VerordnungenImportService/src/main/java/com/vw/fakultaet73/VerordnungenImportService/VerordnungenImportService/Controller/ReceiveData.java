@@ -19,6 +19,8 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
 
 import com.vw.fakultaet73.VerordnungenImportService.VerordnungenImportService.entitites.DecreeEntity;
+import com.vw.fakultaet73.VerordnungenImportService.VerordnungenImportService.entitites.LastChanged;
+import com.vw.fakultaet73.VerordnungenImportService.VerordnungenImportService.entitites.LastChangedStorage;
 import com.vw.fakultaet73.VerordnungenImportService.VerordnungenImportService.errors.RestTemplateResponseErrorHandler;
 import com.vw.fakultaet73.VerordnungenImportService.VerordnungenImportService.services.ExportService;
 import com.vw.fakultaet73.VerordnungenImportService.VerordnungenImportService.services.ImportService;
@@ -32,7 +34,9 @@ public class ReceiveData {
 	private ImportService importService;
 	
 	@Autowired
-	ExportService exportService;
+	private ExportService exportService;
+	
+	private LastChangedStorage lastChangedStorage = new LastChangedStorage();
 	
 	private final String GET_URL = "http://dataservice:8080/decrees";
 	
@@ -41,7 +45,15 @@ public class ReceiveData {
 	@ResponseStatus(HttpStatus.OK)
 	public List<DecreeEntity> saveFilteredList(@PathVariable String state) {
 		this.importService.deletePerState(state);
+		this.lastChangedStorage.change(state);
 		return this.importService.saveDecrees((parse(state)));
+	}
+	
+	@CrossOrigin("*")
+	@GetMapping("/change/{state}")
+	@ResponseStatus(HttpStatus.OK)
+	public LastChanged getTime(@PathVariable String state) {
+		return this.lastChangedStorage.getLastChangedByState(state);
 	}
 	
 	@CrossOrigin("*")
@@ -49,6 +61,7 @@ public class ReceiveData {
 	@ResponseStatus(HttpStatus.OK)
 	public List<DecreeEntity> saveList() {
 		this.importService.deleteAll();
+		this.lastChangedStorage.changeAll();
 		return this.importService.saveDecrees((parse("")));
 	}
 	
@@ -90,6 +103,7 @@ public class ReceiveData {
 	@PutMapping("/editDecree")
 	@ResponseStatus(HttpStatus.OK)
 	public DecreeEntity editDecree(@RequestBody DecreeEntity decreeEntity) {
+		this.lastChangedStorage.change(decreeEntity.getState());
 		return this.importService.saveDecree(decreeEntity);
 	}
 	
@@ -97,7 +111,8 @@ public class ReceiveData {
 	@PostMapping("/deleteDecree")
 	@ResponseStatus(HttpStatus.OK)
 	public void deleteDecree(@RequestBody DecreeEntity decreeEntity) {
-	  this.importService.deleteDecree(decreeEntity);
+		this.lastChangedStorage.change(decreeEntity.getState());
+		this.importService.deleteDecree(decreeEntity);
 	}
 	
 }

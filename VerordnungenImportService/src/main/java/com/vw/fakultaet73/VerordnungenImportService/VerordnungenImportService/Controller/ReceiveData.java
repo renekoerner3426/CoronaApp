@@ -89,6 +89,7 @@ public class ReceiveData {
 	@PostMapping("/newDecree")
 	@ResponseStatus(HttpStatus.OK)
 	public  DecreeEntity getDecrees(@RequestBody DecreeEntity decreeEntity) {
+		this.lastChangedStorage.change(decreeEntity.getState());
 		return this.importService.saveDecree(decreeEntity);
 	}
 	

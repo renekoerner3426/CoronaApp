@@ -31,14 +31,14 @@ public class LastChangedStorage {
 	public void change(String state) {
 		for (LastChanged lastChanged : this.list) {
 			if (lastChanged.getState().equals(state)) {
-				lastChanged.setLastChange("" + LocalDateTime.now(ZoneId.of("ECT")));
+				lastChanged.setLastChange("" + LocalDateTime.now(ZoneId.of("Europe/Berlin")));
 			}
 		}
 	}
 	
 	public void changeAll() {
 		for (LastChanged lastChanged : this.list) {
-				lastChanged.setLastChange("" + LocalDateTime.now());
+				lastChanged.setLastChange("" + LocalDateTime.now(ZoneId.of("Europe/Berlin")));
 		}
 	}
 	

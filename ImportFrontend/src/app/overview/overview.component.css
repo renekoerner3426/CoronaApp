@@ -53,11 +53,11 @@ tr:hover {
 }
 
 tr:hover .editButton {
-    display: inline-block !important;
+    /*  display: inline-block !important; */
 }
 
 tr:hover .deleteButton {
-    display: inline-block !important;
+    /*  display: inline-block !important; */
 }
 
 .uploadInput {

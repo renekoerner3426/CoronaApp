@@ -18,11 +18,11 @@ public class DecreeService {
 	@Autowired
 	private DecreeRepository decreeRepository;
 
-	private List<DecreeEntity> decreeList = new ArrayList<>();
 
 	public List<DecreeEntity> getDecreesList(){
+		List<DecreeEntity> decreeList = new ArrayList<>();
 		Iterable<DecreeEntity> savedEntitys = this.decreeRepository.findAll();	
-		savedEntitys.forEach(savedEntity -> this.decreeList.add(savedEntity));
-		return this.decreeList;
+		savedEntitys.forEach(savedEntity -> decreeList.add(savedEntity));
+		return decreeList;
 	}
 }

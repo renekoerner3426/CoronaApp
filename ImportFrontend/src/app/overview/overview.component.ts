@@ -31,8 +31,8 @@ export class OverviewComponent implements OnInit {
   allStatesVisible: boolean = true;
   selectedDecreesByState = [];
   selectedDecreesByStateFiltered = [];
-  descriptionDecree: string;
-  regulationsDecree: string;
+  descriptionDecree: string = "";
+  regulationsDecree: string = "";
   searchWords;
   selectedState: string;
 

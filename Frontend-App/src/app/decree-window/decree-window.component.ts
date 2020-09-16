@@ -78,7 +78,7 @@ export class DecreeWindowComponent implements OnInit {
 
   ngOnInit() {
     this.updateDecreeList();
-    this.selectedDecreesByState = this.decrees;
+    this.selectedDecreesByStateFiltered = this.decrees;
   }
   
   public searchByState() {

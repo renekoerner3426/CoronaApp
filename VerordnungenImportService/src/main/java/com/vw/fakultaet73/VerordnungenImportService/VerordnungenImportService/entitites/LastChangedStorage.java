@@ -1,6 +1,7 @@
 package com.vw.fakultaet73.VerordnungenImportService.VerordnungenImportService.entitites;
 
 import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -30,7 +31,7 @@ public class LastChangedStorage {
 	public void change(String state) {
 		for (LastChanged lastChanged : this.list) {
 			if (lastChanged.getState().equals(state)) {
-				lastChanged.setLastChange("" + LocalDateTime.now());
+				lastChanged.setLastChange("" + LocalDateTime.now(ZoneId.of("ECT")));
 			}
 		}
 	}

@@ -141,7 +141,7 @@ export class DecreeWindowComponent implements OnInit {
             this.maxHomesString = decree.description;
     
           }   else if (!(decree.description.search(this.maxPersonsPerAreaOutsideString) == -1)) {
-            this.correctPeoplePerArea = this.getNumber(decree.description, this.maxPersonsPerAreaOutsideString, (this.area/this.persons));
+            this.correctPeoplePerArea = !this.getNumber(decree.description, this.maxPersonsPerAreaOutsideString, (this.area/this.persons));
 
           } else if (!(decree.description.search(this.closedFacilitiesString) == -1)) {
             this.closedFacilities = decree.description;
@@ -163,7 +163,7 @@ export class DecreeWindowComponent implements OnInit {
             this.maxHomesString = decree.description;
     
           }   else if (!(decree.description.search(this.maxPersonsPerAreaInsideString) == -1)) {
-            this.correctPeoplePerArea = this.getNumber(decree.description, this.maxPersonsPerAreaInsideString, (this.area/this.persons));   
+            this.correctPeoplePerArea = !this.getNumber(decree.description, this.maxPersonsPerAreaInsideString, (this.area/this.persons));   
 
             }else if (!(decree.description.search(this.closedFacilitiesString) == -1)) {
               this.closedFacilities = decree.description;

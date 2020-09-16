@@ -58,7 +58,13 @@ export class OverviewComponent implements OnInit {
   deleteFailed: boolean = false;
 
   //all
-  decrees: DecreeEntity[] = [];
+  decrees: DecreeEntity[] = [
+    {id:1, state:"Bayern", description:"test1", regulations:"irgendetwas"},
+    {id:2, state:"Bayern", description:"test2", regulations:"du"},
+    {id:3, state:"Bayern", description:"test3", regulations:"gehts"},
+    {id:4, state:"Bayern", description:"test4", regulations:"irgendetwas"},
+    {id:5, state:"Bayern", description:"test5", regulations:"irgendetwas"},
+  ];
   showLastChange: boolean = false;
   decreeCreated: number;
   lastUploadDate: string = "nie";

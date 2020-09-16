@@ -34,7 +34,7 @@ export class DecreeWindowComponent implements OnInit {
   decrees: DecreeEntity[] = [];
 
 
-
+  allStatesVisible: boolean = true;
   selectedDecreesByState = [];
   selectedDecreesByStateFiltered = [];
   selectedState: string = "";
@@ -82,6 +82,7 @@ export class DecreeWindowComponent implements OnInit {
   }
   
   public searchByState() {
+    this.allStatesVisible = false;
     if(this.selectedState.length > 0) {
       this.selectedDecreesByState = this.decrees.filter(decreeEntry => decreeEntry.state === this.selectedState);
     } else {

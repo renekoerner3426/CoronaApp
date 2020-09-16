@@ -31,7 +31,9 @@
                 <button class="calculateButton" (click)="calculate()">Berechnen</button>
                 <p class="homes">{{maxHomesString}}</p>
                 <p class="closed">{{closedFacilities}}</p>
-                <p class="allowedText" *ngIf="correctPeople && correctPeoplePerArea; else elseBlock">Veranstaltung darf stattfinden</p>
+                <div *ngIf="correctPeople; else elseBlock">
+                    <p class="allowedText" *ngIf="correctPeoplePerArea; else elseBlock">Veranstaltung darf stattfinden</p>
+                </div>
                 <ng-template #elseBlock>
                     <p class="notAllowedText">Veranstaltungen darf nicht stattfinden</p>
                 </ng-template>
@@ -62,10 +64,12 @@
         <div *ngIf="selectedDecreesByStateFiltered.length > 0; else elseBlock">
             <table>
                 <tr>
+                    <th *ngIf="allStatesVisible">Bundesland</th>
                     <th>Beschreibung</th>
                     <th>Einschränkungen</th>
                 </tr>
                 <tr *ngFor="let decree of selectedDecreesByStateFiltered">
+                    <td *ngIf="allStatesVisible">{{decree.state}}</td>
                     <td>{{ decree.description }}</td>
                     <td>{{ decree.regulations }}</td>
                 </tr>
